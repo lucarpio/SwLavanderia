@@ -1,0 +1,74 @@
+@model IEnumerable<SwLavanderia.Models.Cliente>
+@{
+    ViewBag.title = "Clientes";
+}
+<h1>@ViewBag.title</h1>
+<form method="POST">
+    <label >Filtrar por :</label>
+    <select name="idfiltro">
+        <option value="nombre">Nombre</option>
+        <option value="apellido">Apellido</option>
+        <option value="tipodoc">Tipo Documento</option>``
+    </select>
+    <input type="text" name="filtro" required>
+    <button>Filtrar</button>
+</form>
+<table class="table table-light table-hover">
+    <thead class="thead-dark">
+        <tr>    
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.TipoDoc)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.NroDoc)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Tel)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th scope="col">
+                Distrito
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoDoc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NroDoc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+             
+            
+        </tr>
+}        
+    </tbody>
+</table>

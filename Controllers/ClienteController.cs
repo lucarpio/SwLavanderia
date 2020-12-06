@@ -29,6 +29,7 @@ namespace SwLavanderia.Controllers
                 _context.Add(objCliente);
                 _context.SaveChanges();
                 ViewData["Message"] = "Success";
+                RedirectToAction("ListarCliente");
                 
             }
             
@@ -36,6 +37,12 @@ namespace SwLavanderia.Controllers
             
         }
 
+
+        public IActionResult ListarCliente() 
+        {   
+             var listClientes=_context.Clientes.OrderBy(s=>s.Id) .ToList();
+            return View(listClientes);
+        }
 
     }
     
