@@ -15,7 +15,7 @@ namespace SwLavanderia.Controllers
             _context = context;
         }
         
-        public IActionResult RegistroCliente() 
+        public IActionResult RegistrarCliente() 
         {
             return View();
         }
