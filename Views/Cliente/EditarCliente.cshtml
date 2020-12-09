@@ -5,7 +5,7 @@
 
 <h1 class="text-center">@ViewData["title"]</h1>
 <div class="container">
-    <form asp-action="RegistrarCliente" method="post">
+    <form asp-action="EditarCliente" method="post">
         <!--<div asp-validation-summary="All"></div>-->
         <div class="form-group">
             <label asp-for="Nombre">Nombre(s)*:</label>
@@ -68,7 +68,7 @@
         </div>
 
         @if (ViewData["Message"] != null) {
-            <script> alert("Mensaje exitoso") </script>
+            <script> alert("Cambio realizado") </script>
         }   
 
         <div class="text-center pt-3">
