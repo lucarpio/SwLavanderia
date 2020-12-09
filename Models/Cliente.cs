@@ -24,11 +24,12 @@ namespace SwLavanderia.Models
         //[Column("tipodoc")]
         public string TipoDoc { get; set; }
 
-        [Required(ErrorMessage="Debe ingresar un numero de documento")]
+        [Required(ErrorMessage="Debe ingresar un número de documento")]
+        [RegularExpression("(^[0-9]+$)", ErrorMessage = "Solo se permiten números")]
         //[Column("nrodoc")]
         public string NroDoc { get; set; }
 
-        [Required(ErrorMessage="Debe ingresar una direccion")]
+        [Required(ErrorMessage="Debe ingresar una dirección")]
         //[Column("direccion")]
         public string Direccion { get; set; }
         
@@ -48,5 +49,14 @@ namespace SwLavanderia.Models
         public int DistritoId { get; set; }
         
         
+        /*
+        public class NroDocExistAttribute : ValidationAttribute{
+            
+            var listClientes=_context.Clientes.OrderBy(s=>s.Id) .ToList();
+            
+        }
+        */
+
+
     }
 }
