@@ -42,7 +42,7 @@ namespace SwLavanderia.Controllers
                 _context.Add(objCliente);
                 _context.SaveChanges();
                 ViewData["Message"] = "Success";
-                return RedirectToAction("RegistrarCliente");    
+                return View();    
             }
             return View();
             
@@ -76,6 +76,7 @@ namespace SwLavanderia.Controllers
         [HttpPost]
         public IActionResult EditarCliente(int id, Cliente objCliente)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Update(objCliente);
