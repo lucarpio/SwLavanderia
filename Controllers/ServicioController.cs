@@ -19,25 +19,23 @@ namespace SwLavanderia.Controllers
         public IActionResult Registro()
         {
             //aca se ve el formulario de registro de almacen
+            // ViewBag.fecha = System.DateTime.Today;
             ViewBag.fecha = System.DateTime.Now;
-            var listaClientes = _context.Clientes.ToList().Select(client => new SelectListItem(client.NroDoc+" "+client.Nombre+" "+client.Apellido, client.Id.ToString()));
-
-            // ViewBag.clientes = listaClientes;
             ViewBag.clientes = listarClientes().Select(client => new SelectListItem(client.NroDoc+" "+client.Nombre+" "+client.Apellido, client.Id.ToString()));
             return View();
         }
         [HttpPost]
         public IActionResult Registro(Ticket objTk)
         {
-            ViewBag.axcel = "axcel";
+            ViewBag.fecha = System.DateTime.Now;
+            ViewBag.clientes = listarClientes().Select(client => new SelectListItem(client.NroDoc+" "+client.Nombre+" "+client.Apellido, client.Id.ToString()));
             //aca se registra el/ nuevo servicio(ticket) a guardar en almacen
-            
-            var nroBoleta = objTk.TkNroBoleta;
             //revisar si la boleta ya esta registrada
-            if(checkTicket(nroBoleta))
+            var nroBoleta = objTk.TkNroBoleta;
+            if(checkTicket(nroBoleta) || !ModelState.IsValid)
             {
-                // si se ingresa una boleta duplicada se activa este metodo
-                ModelState.AddModelError("NroDoc","Ya existe un Documento con ese número");
+                // si se ingresa una boleta duplicada se activa este metodo y se da el mensaje de error
+                ModelState.AddModelError("TkNroBoleta","Esta boleta ya esta registrada");
                 return View(objTk);
             }else
             {
@@ -47,6 +45,8 @@ namespace SwLavanderia.Controllers
                 //asigna por defecto estado "En espera"
                 objTk.EstadoId = 1;
                 _context.Add(objTk);
+                objTk.AlmacenId = 1;
+                // return Json(objTk);
                 _context.SaveChanges();
                 return RedirectToAction("Detalle",objTk);
             }
@@ -91,7 +91,7 @@ namespace SwLavanderia.Controllers
         }
 
         // -------------------------------------------------------METODOS------------------------------------------------------------------
-        public bool checkTicket(int n)
+        bool checkTicket(int n)
         {
             var check = false;
             var listaTickets = _context.Tickets.OrderBy(x => x.Id).ToList();
@@ -105,7 +105,7 @@ namespace SwLavanderia.Controllers
             }
             return check;
         }
-        public List<Cliente> listarClientes()
+        List<Cliente> listarClientes()
         {
             var listaClientes = _context.Clientes.OrderBy(x => x.Id)
                                                 .ToList();
