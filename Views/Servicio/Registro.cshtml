@@ -1,9 +1,12 @@
+@model Ticket
+
 <div class="container">
     <h1 class="text-center">Registrar Servicio</h1>
     <form method="POST" action="">
         <div class="form-group">
             <label for="">Cliente: </label>
             <input type="search" placeholder="Cliente" class="form-control">
+            <select asp-for="ClienteId" asp-items="ViewBag.clientes" class="form-control"></select>
         </div>
         <div class="form-group">
             <label for="">Fecha: </label>

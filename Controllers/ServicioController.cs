@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SwLavanderia.Data;
 using SwLavanderia.Models;
 
@@ -9,18 +10,20 @@ namespace SwLavanderia.Controllers
     public class ServicioController : Controller
     {
         private readonly LavanderiaContext _context;
-        private readonly UtilsController _utilitario;
-        public ServicioController(LavanderiaContext c, UtilsController u)
+        
+        public ServicioController(LavanderiaContext c)
         {
             _context = c;
-            _utilitario = u;
         }
-
-
 
         public IActionResult Registro()
         {
             //aca se ve el formulario de registro de almacen
+            ViewBag.fecha = System.DateTime.Now;
+            var listaClientes = _context.Clientes.ToList().Select(client => new SelectListItem(client.NroDoc+" "+client.Nombre+" "+client.Apellido, client.Id.ToString()));
+
+            // ViewBag.clientes = listaClientes;
+            ViewBag.clientes = listarClientes().Select(client => new SelectListItem(client.NroDoc+" "+client.Nombre+" "+client.Apellido, client.Id.ToString()));
             return View();
         }
         [HttpPost]
@@ -28,12 +31,26 @@ namespace SwLavanderia.Controllers
         {
             ViewBag.axcel = "axcel";
             //aca se registra el/ nuevo servicio(ticket) a guardar en almacen
-            ViewBag.clientes = _utilitario.listarClientes();
-            objTk.TkFechaIngreso = System.DateTime.Now;
-            objTk.EstadoId = 1;
-            _context.Add(objTk);
-            _context.SaveChanges();
-            return View("Detalle",objTk);
+            
+            var nroBoleta = objTk.TkNroBoleta;
+            //revisar si la boleta ya esta registrada
+            if(checkTicket(nroBoleta))
+            {
+                // si se ingresa una boleta duplicada se activa este metodo
+                ModelState.AddModelError("NroDoc","Ya existe un Documento con ese número");
+                return View(objTk);
+            }else
+            {
+                ViewBag.clientes = listarClientes();
+                //se guarda la fecha de 
+                objTk.TkFechaIngreso = System.DateTime.Now;
+                //asigna por defecto estado "En espera"
+                objTk.EstadoId = 1;
+                _context.Add(objTk);
+                _context.SaveChanges();
+                return RedirectToAction("Detalle",objTk);
+            }
+            
         }
 
 
@@ -71,6 +88,28 @@ namespace SwLavanderia.Controllers
         public IActionResult Confirmacion()
         {
             return View();
+        }
+
+        // -------------------------------------------------------METODOS------------------------------------------------------------------
+        public bool checkTicket(int n)
+        {
+            var check = false;
+            var listaTickets = _context.Tickets.OrderBy(x => x.Id).ToList();
+            for (var i = 0; i < listaTickets.Count; i++)
+            {
+                if(n == listaTickets.ElementAt(i).TkNroBoleta)
+                {
+                    check = true;
+                }
+                
+            }
+            return check;
+        }
+        public List<Cliente> listarClientes()
+        {
+            var listaClientes = _context.Clientes.OrderBy(x => x.Id)
+                                                .ToList();
+            return listaClientes;
         }
     }
 }
