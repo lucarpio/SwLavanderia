@@ -20,7 +20,7 @@ namespace SwLavanderia.Models
         public DateTime? TkFechaEntrega { get; set; }
 
         //Precio total del ticket
-        public double TkPagoTotal { get; set; }
+        public double? TkPagoTotal { get; set; }
 
 
 
