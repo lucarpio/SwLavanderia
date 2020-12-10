@@ -1,0 +1,40 @@
+@model List<Servicio>
+<h1 class="text-center">Listar Servicios Pendientes</h1>
+
+<h5 class="text-center">@ViewBag.nombrefiltro</h5>
+<table class="table table-hover">
+    <thead class="thead-dark text-center">
+        <th>Nro Boleta</th>
+        <th>Descripción</th>
+        <th>Fecha de Entrega</th>
+        <th>Ver más</th>
+    </thead>
+    <tbody>
+        @foreach (var servicio in Model)
+        {
+            <tr class="text-center">
+                <td>
+                    @servicio.ID
+                </td>
+                <td>
+                    @servicio.Descripcion
+                </td>
+                <td>
+                    @servicio.FEntrega.ToShortDateString()
+                </td>
+                <td>
+                    <a class="btn btn-warning" href="/Servicio/DetalleServicio?nroservicio=@servicio.ID" >Ver detalle</a>
+                </td>
+            </tr>
+            
+        }
+        <tr class="text-light bg-dark text-center">
+            <td>ID</td>
+            <td>Descripción</td>
+            <td>Fecha de Entrega</td>
+            <td>Ver más</td>
+        </tr>
+    </tbody>
+</table>
+
+<a style="text-align: center;" class="btn btn-warning" href="/Home/Index" >Volver</a>
