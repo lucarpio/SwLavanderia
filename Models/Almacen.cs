@@ -2,6 +2,7 @@ namespace SwLavanderia.Models
 {
     public class Almacen
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
+        public int NomAlm { get; set; }
     }
 }
