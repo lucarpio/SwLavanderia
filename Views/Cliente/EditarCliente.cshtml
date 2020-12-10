@@ -5,10 +5,8 @@
 
 <h1 class="text-center">@ViewData["title"]</h1>
 <div class="container">
-    
-    <input type="button" class="btn btn-secondary" value="Limpiar campos" onclick="location.href='@Url.Action("RegistrarCliente","Cliente")'" >
-    <br><br><br>
-    <form asp-action="RegistrarCliente" id="test-form" method="post">
+    <form asp-action="EditarCliente" method="post">
+        <!--<div asp-validation-summary="All"></div>-->
         <div class="form-group">
             <label asp-for="Nombre">Nombre(s)*:</label>
             <input asp-for="Nombre" placeholder="Nombre(s)" class="form-control">
@@ -33,10 +31,16 @@
     
         <div class="form-group">
             <label asp-for="NroDoc">Numero de Documento*:</label>
-            <input asp-for="NroDoc" type="tel" placeholder="Numero de Documento" class="form-control">
+            <input asp-for="NroDoc" placeholder="Numero de Documento" class="form-control">
             <small><strong><span asp-validation-for="NroDoc" class="text-danger"></span></strong></small>
         </div>
     
+        <!--
+        <div class="col-3">
+            <label asp-for="Distrito">Distrito*:</label>
+            <select asp-for="DistritoId" asp-items="ViewBag.Distrito" class="form-control"></select>
+        </div>
+        -->
     
         <div class="form-group">
             <label asp-for="Direccion">Dirección*:</label>
@@ -64,18 +68,15 @@
         </div>
 
         @if (ViewData["Message"] != null) {
-            <script> 
-                alert("Registro exitoso") 
-            </script>
+            <script> alert("Cambio realizado") </script>
         }   
 
-        <div>
-        <button type="submit" class="btn btn-info">Registrar</button>
+        <div class="text-center pt-3">
+        <input type="submit" class="btn btn-info">
     </form>
-    
-        <input type="button" class="btn btn-info" value="Inicio" onclick="location.href='@Url.Action("Index","Home")'" >
 
-        <input type="button" class="btn btn-info" value="Ver Lista de Clientes" onclick="location.href='@Url.Action("ListarCliente","Cliente")'" >
+    
+            <input type="button" class="btn btn-info" value="Volver" onclick="location.href='@Url.Action("Index","Home")'" >
         </div>
     
          
