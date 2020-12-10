@@ -35,5 +35,9 @@ namespace SwLavanderia.Models
         //Para acceder a Almacen
         public Almacen Almacen  { get; set; }
         public int AlmacenId { get; set; }
+
+        //Estado del ticket
+        public Estado Estado { get; set; }
+        public int EstadoId { get; set; }
     }
 }
