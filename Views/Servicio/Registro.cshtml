@@ -21,13 +21,13 @@
             <div class="text-center">
                 <div>
                     <label class="form-check p-2 btn-info" for="almacen1">
-                        <input class="form-check-input" type="radio" asp-for="AlmacenId" value=1 name="almacen" id="almacen1">
+                        <input class="form-check-input" type="radio" asp-for="AlmacenId" value="1" id="almacen1">
                         Almacen 1
                     </label>
                 </div>
                 <div>
                     <label class="form-check p-2 btn-warning" for="almacen2">
-                        <input class="form-check-input" type="radio" asp-for="AlmacenId" value=2 name="almacen" id="almacen2">
+                        <input class="form-check-input" type="radio" asp-for="AlmacenId" value="2" id="almacen2">
                         Almacen 2
                     </label>
                 </div>
@@ -36,7 +36,7 @@
         <div class="form-group text-center">
             <div class="row">
                 <div class="col">
-                    <input type="submit" value="Registrar" class="btn btn-success">
+                    <input type="submit" value="Registrar" class="btn btn-success" asp-route-id="">
                 </div>
                 <div class="col">
                     <input type="submit" value="Cancelar" class="btn btn-warning">
