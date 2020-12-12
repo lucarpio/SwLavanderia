@@ -8,49 +8,49 @@
         @foreach (var item in Model.Where(x => x.IdServicio.Equals(@ViewBag.numero)).ToList())
         {
             <tr>
-                <td style="background-color: #AAB7BC; color: white">Nro de Boleta</td>
+                <td style="background-color: #7D888C; color: white">Nro de Boleta</td>
                 <td>
                     @item.Servicio.ID
                 </td>
             </tr>
             <tr>
-                <td style="background-color: #AAB7BC; color: white">Nombre del cliente</td>
+                <td style="background-color: #7D888C; color: white">Nombre del cliente</td>
                 <td>
                     @item.Cliente.Nombre
                 </td>
             </tr>
             <tr>
-                <td style="background-color: #AAB7BC; color: white">Tipo de Servicio</td>
+                <td style="background-color: #7D888C; color: white">Tipo de Servicio</td>
                 <td>
                     @item.Servicio.TipoServicio
                 </td>
             </tr>
             <tr>
-                <td style="background-color: #AAB7BC; color: white">Descripción</td>
+                <td style="background-color: #7D888C; color: white">Descripción</td>
                 <td>
                     @item.Servicio.Descripcion
                 </td>
             </tr>
             <tr>
-                <td style="background-color: #AAB7BC; color: white">Tarifa por Unidad</td>
+                <td style="background-color: #7D888C; color: white">Tarifa por Unidad</td>
                 <td>
                     @item.Servicio.TarifaxUnidad
                 </td>
             </tr>
             <tr>
-                <td style="background-color: #AAB7BC; color: white">Precio Total</td>
+                <td style="background-color: #7D888C; color: white">Precio Total</td>
                 <td>
                     @item.PrecioTotal
                 </td>
             </tr>
             <tr>
-                <td style="background-color: #AAB7BC; color: white">Fecha de Entrega</td>
+                <td style="background-color: #7D888C; color: white">Fecha de Entrega</td>
                 <td>
                     @item.Servicio.FEntrega.ToShortDateString()
                 </td>
             </tr>
             <tr>
-                <td style="background-color: #AAB7BC; color: white">Estado</td>
+                <td style="background-color: #7D888C; color: white">Estado</td>
                 <td>
                     @item.Estado.nombre
                 </td>
