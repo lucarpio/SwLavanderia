@@ -108,23 +108,22 @@ namespace SwLavanderia.Controllers
         }
         public IActionResult Confirmacion(int boleta)
         {
+            ViewBag.nroboleta = boleta;
             var objBoleta = _context.Tickets.Find(boleta);
-            var suma = _context.Servicios.Include(x=>x.ticket).Where(y=>y.TicketId == boleta).Sum(z=>z.PrecServicio);
-            objBoleta.TkPagoTotal = suma;
             // return Json(objBoleta);
-            _context.Update(objBoleta);
-            _context.SaveChanges();
             return View();
         }
         [HttpPost]
         public IActionResult Confirmacion(int boleta, Ticket objTicket)
         {
             var objBoleta = _context.Tickets.Find(boleta);
+            var suma = _context.Servicios.Include(x=>x.ticket).Where(y=>y.TicketId == boleta).Sum(z=>z.PrecServicio);
+            objBoleta.TkPagoTotal = suma;
             objBoleta.TkFechaEntrega = objTicket.TkFechaEntrega;
-            return Json(objBoleta);
+            // return Json(objBoleta);
             _context.Update(objBoleta);
             _context.SaveChanges();
-            // return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
 
 // ----------------------------------------------------------METODOS------------------------------------------------------------------

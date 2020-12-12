@@ -90,7 +90,7 @@
                 Agregue algunos servicios para guardar el servicio
             </p>
             <form action="Detalle" method="get">
-                <button class="btn btn-success"><a asp-action="Detalle" asp-route-boleta="@ViewBag.idBol">Agregar</a></button>
+                <a class="btn btn-success" asp-action="Detalle" asp-route-boleta="@ViewBag.idBol">Agregar</a>
                 <input type="submit" value="Cancelar" class="btn btn-danger" asp-action="Confirmacion">
             </form>
         </div>
