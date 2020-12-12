@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using SwLavanderia.Data;
 using SwLavanderia.Models;
 
@@ -19,7 +20,6 @@ namespace SwLavanderia.Controllers
         public IActionResult Registro()
         {
             //aca se ve el formulario de registro de almacen
-            // ViewBag.fecha = System.DateTime.Today;
             ViewBag.fecha = System.DateTime.Now;
             ViewBag.clientes = listarClientes().Select(client => new SelectListItem(client.NroDoc+" "+client.Nombre+" "+client.Apellido, client.Id.ToString()));
             return View();
@@ -29,13 +29,20 @@ namespace SwLavanderia.Controllers
         {
             ViewBag.fecha = System.DateTime.Now;
             ViewBag.clientes = listarClientes().Select(client => new SelectListItem(client.NroDoc+" "+client.Nombre+" "+client.Apellido, client.Id.ToString()));
-            //aca se registra el/ nuevo servicio(ticket) a guardar en almacen
+            //aca se registra el nuevo servicio(ticket) a guardar en almacen
             //revisar si la boleta ya esta registrada
             var nroBoleta = objTk.TkNroBoleta;
-            if(checkTicket(nroBoleta) || !ModelState.IsValid)
+            if(checkTicket(nroBoleta) || !ModelState.IsValid || objTk.AlmacenId==0)
             {
                 // si se ingresa una boleta duplicada se activa este metodo y se da el mensaje de error
-                ModelState.AddModelError("TkNroBoleta","Esta boleta ya esta registrada");
+                if(checkTicket(nroBoleta))
+                {
+                    ModelState.AddModelError("TkNroBoleta","Esta boleta ya esta registrada");
+                }
+                if (objTk.AlmacenId==0)
+                {
+                    ModelState.AddModelError("AlmacenId","Escoja un almacen");
+                }
                 return View(objTk);
             }else
             {
@@ -45,41 +52,64 @@ namespace SwLavanderia.Controllers
                 //asigna por defecto estado "En espera"
                 objTk.EstadoId = 1;
                 _context.Add(objTk);
-                objTk.AlmacenId = 1;
+                //USAR PARA VER INFO DEL OBJ SIN GUARDAR A LA DB
                 // return Json(objTk);
                 _context.SaveChanges();
-                return RedirectToAction("Detalle",objTk);
+                return RedirectToAction("Listado",objTk);
             }
             
         }
 
 
 
-        public IActionResult Detalle(Ticket objTk)
+        public IActionResult Detalle(int boleta)
         {
             //recibe los datos para mostrar info del ticket al que se le añaden los servicios
+            var objTicket = _context.Tickets.Find(boleta);
+            // var objServ = ;
+            // return Json(objTicket);
+            ViewBag.idboleta = objTicket.Id;
+            ViewBag.ServiciosDisponibles = listarServDispo().Select(serv => new SelectListItem(serv.NomServ, serv.Id.ToString()));
             return View();
         }
         [HttpPost]
-        public IActionResult Detalle(Servicio detServ)
+        public IActionResult Detalle(Servicio detServ, int idboleta)
         {
-            _context.Add(detServ);
-            _context.SaveChanges();
-            return View();
+            var objTicket = _context.Tickets.Find(idboleta);
+            // ViewBag.idboleta = objTicket.Id;
+            detServ.TicketId = idboleta;
+            if(ModelState.IsValid)
+            {
+                return Json(detServ);
+            }else{
+                if (detServ.PrecServicio<=0)
+                {
+                    ModelState.AddModelError("PrecServicio","El precio debe ser mayor que 0");
+                }
+                return View(detServ);
+            }
+            // _context.Add(detServ);
+            // _context.SaveChanges();
+            // return View();
         }
 
 
 
-        public IActionResult Entrega(Ticket objTk)
+        public IActionResult Listado(Ticket objTk)
         {
+            //lista los servicios agregados al ticket
+            //permite revisar agregar nuevos servicios o quitarlos del ticket a guardar
+            ViewBag.NroBoleta = objTk.TkNroBoleta;
+            ViewBag.idBol = objTk.Id;
+            var ListaServicios = listarServicios();
+            // return Json(ListaServicios);
+            return View(ListaServicios);
+        }
+        [HttpPost]
+        public IActionResult Listado()
+        {
+            // ViewBag.idBol = objTk.Id;
             //se añade la fecha de entrega al ticket
-            _context.Update(objTk);
-            _context.SaveChanges();
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Entrega()
-        {
             return View();
         }
 
@@ -90,7 +120,7 @@ namespace SwLavanderia.Controllers
             return View();
         }
 
-        // -------------------------------------------------------METODOS------------------------------------------------------------------
+// ----------------------------------------------------------METODOS------------------------------------------------------------------
         bool checkTicket(int n)
         {
             var check = false;
@@ -107,9 +137,23 @@ namespace SwLavanderia.Controllers
         }
         List<Cliente> listarClientes()
         {
-            var listaClientes = _context.Clientes.OrderBy(x => x.Id)
-                                                .ToList();
+            var listaClientes = _context.Clientes.Include(c => c.Distrito)
+                                                 .OrderBy(x => x.Id)
+                                                 .ToList();
             return listaClientes;
+        }
+        List<Servicio> listarServicios()
+        {
+            var listaServicios = _context.Servicios.Include(x => x.ticket).Include(x => x.serviciosDisponibles)
+                                                   .OrderBy(x => x.Id)
+                                                   .ToList();
+            return listaServicios;
+        }
+        List<ServiciosDisponibles> listarServDispo()
+        {
+            var listaServDispo = _context.ServiciosDisponibles.OrderBy(x => x.Id)
+                                                              .ToList();
+            return listaServDispo;
         }
     }
 }

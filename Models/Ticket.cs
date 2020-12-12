@@ -10,6 +10,7 @@ namespace SwLavanderia.Models
         public int Id { get; set; }
 
         //Numero de boleta (Debe ser unico)
+        [RegularExpression(@"^\d{6}", ErrorMessage = "El numero de boleta debe tener 6 digitos")]
         public int TkNroBoleta { get; set; }
 
         //Fecha de registro en BD o ingreso a almacen
@@ -20,6 +21,8 @@ namespace SwLavanderia.Models
         public DateTime? TkFechaEntrega { get; set; }
 
         //Precio total del ticket
+        // [Required(ErrorMessage="No dejar el campo nulo")]
+        [RegularExpression(@"^\$?\d+(\.(\d{1,2}))?$", ErrorMessage ="El precio debe tener hasta 2 decimales")]
         public double? TkPagoTotal { get; set; }
 
 

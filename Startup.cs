@@ -26,7 +26,7 @@ namespace SwLavanderia
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<LavanderiaContext>(dbo => dbo.UseNpgsql(Configuration.GetConnectionString("Lavanderia-db")));
+            services.AddDbContext<LavanderiaContext>(dbo => dbo.UseNpgsql(Configuration.GetConnectionString("Pruebas-db")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +53,7 @@ namespace SwLavanderia
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/");
             });
         }
     }
