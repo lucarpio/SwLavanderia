@@ -18,7 +18,7 @@
                 Total (S/.):  
                 @if (Model.Count()>0)
                 {
-                    <label>@Model.AsQueryable().Sum(x=>x.PrecServicio)</label>
+                    <label>@Math.Round(Model.AsQueryable().Sum(x=>x.PrecServicio),2)</label>
                 }else
                 {
                     <label>0.00</label>
@@ -59,7 +59,7 @@
                         @item.DescServicio
                     </td>
                     <td>
-                        @item.PrecServicio
+                        S/. @item.PrecServicio
                     </td>
                     <td>
                         <button class="btn btn-warning">
@@ -76,17 +76,9 @@
         </table>
     </div>
     <div class="container">
-        <div class="row">
-            <div class="col-7">
-                <label>
-                    Boleta Nro:
-                </label>
-            </div>
-            <div class="col-5">
-                <label>
-                    Total:
-                </label>
-            </div>
+        <div class="text-center">
+            <button class="btn btn-success"><a asp-action="Detalle" asp-route-boleta="@ViewBag.idBol">Agregar nuevo servicio</a></button>
+            <button class="btn btn-info"><a asp-action="Confirmacion" asp-route-boleta="@ViewBag.idBol">Finalizar</a></button>
         </div>
     </div>
 }else
@@ -98,12 +90,23 @@
                 Agregue algunos servicios para guardar el servicio
             </p>
             <form action="Detalle" method="get">
-                <button class="btn btn-success"><a asp-action="Detalle" asp-route-boleta="@ViewBag.idBol">Agregar (manda a detalle)@ViewBag.idBol</a></button>
+                <button class="btn btn-success"><a asp-action="Detalle" asp-route-boleta="@ViewBag.idBol">Agregar</a></button>
                 <input type="submit" value="Cancelar" class="btn btn-danger" asp-action="Confirmacion">
             </form>
         </div>
-        
     </div>
-    
 }
+
+<style>
+    a {
+    color: white;
+    text-decoration: none;
+}
+    a:hover 
+{
+    color: white;
+    text-decoration:none; 
+    cursor:pointer;  
+}
+</style>
 

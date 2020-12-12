@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -78,9 +79,12 @@ namespace SwLavanderia.Controllers
             var objTicket = _context.Tickets.Find(idboleta);
             // ViewBag.idboleta = objTicket.Id;
             detServ.TicketId = idboleta;
-            if(ModelState.IsValid)
+            if(ModelState.IsValid) 
             {
-                return Json(detServ);
+                // return Json(detServ);
+                _context.Add(detServ);
+                _context.SaveChanges();
+                return RedirectToAction("Listado",objTicket);
             }else{
                 if (detServ.PrecServicio<=0)
                 {
@@ -88,9 +92,6 @@ namespace SwLavanderia.Controllers
                 }
                 return View(detServ);
             }
-            // _context.Add(detServ);
-            // _context.SaveChanges();
-            // return View();
         }
 
 
@@ -101,23 +102,29 @@ namespace SwLavanderia.Controllers
             //permite revisar agregar nuevos servicios o quitarlos del ticket a guardar
             ViewBag.NroBoleta = objTk.TkNroBoleta;
             ViewBag.idBol = objTk.Id;
-            var ListaServicios = listarServicios();
+            var ListaServicios = listarServicios().Where(x=>x.TicketId == objTk.Id).ToList();
             // return Json(ListaServicios);
             return View(ListaServicios);
         }
-        [HttpPost]
-        public IActionResult Listado()
+        public IActionResult Confirmacion(int boleta)
         {
-            // ViewBag.idBol = objTk.Id;
-            //se añade la fecha de entrega al ticket
+            var objBoleta = _context.Tickets.Find(boleta);
+            var suma = _context.Servicios.Include(x=>x.ticket).Where(y=>y.TicketId == boleta).Sum(z=>z.PrecServicio);
+            objBoleta.TkPagoTotal = suma;
+            // return Json(objBoleta);
+            _context.Update(objBoleta);
+            _context.SaveChanges();
             return View();
         }
-
-
-
-        public IActionResult Confirmacion()
+        [HttpPost]
+        public IActionResult Confirmacion(int boleta, Ticket objTicket)
         {
-            return View();
+            var objBoleta = _context.Tickets.Find(boleta);
+            objBoleta.TkFechaEntrega = objTicket.TkFechaEntrega;
+            return Json(objBoleta);
+            _context.Update(objBoleta);
+            _context.SaveChanges();
+            // return RedirectToAction("Index");
         }
 
 // ----------------------------------------------------------METODOS------------------------------------------------------------------
