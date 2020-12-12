@@ -7,7 +7,7 @@ namespace SwLavanderia.Models
     public class Cliente
     {
        //Se cambió el string Id por int id
-        public int Id { get; set; }
+        public int ID { get; set; }
 
         [Required(ErrorMessage="Debe colocar un nombre")]
         public string Nombre { get; set; }
@@ -26,11 +26,7 @@ namespace SwLavanderia.Models
         
         [Required(ErrorMessage="Debe colocar un numero de telefono")]
         public int Tel { get; set; }
-        
-
         [EmailAddress]    
-        public string Email { get; set; }
-        
-        
+        public string Email { get; set; }        
     }
 }
