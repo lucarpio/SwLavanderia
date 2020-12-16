@@ -1,0 +1,143 @@
+@model List<Servicio>
+@{
+    ViewBag.title = "Detalle Servicio";
+}
+<h3 class="text-center">@ViewBag.title Nro: @ViewBag.numero</h3>
+<table class="table table-hover">   
+    <tbody>
+        @foreach (var item in Model.Where(x => x.Id.Equals(@ViewBag.numero)).ToList())
+        {
+            <tr>
+                <td style="background-color: #7D888C; color: white">Nro de Boleta</td>
+                <td>
+                    @item.ticket.TkNroBoleta
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #7D888C; color: white">Nombre del cliente</td>
+                <td>
+                    @item.ticket.Cliente.Nombre
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #7D888C; color: white">Tipo de Servicio</td>
+                <td>
+                    @item.serviciosDisponibles.NomServ
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #7D888C; color: white">Descripción</td>
+                <td>
+                    @item.DescServicio
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #7D888C; color: white">Tarifa por Unidad</td>
+                <td>
+                    @item.PrecServicio
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #7D888C; color: white">Precio Total</td>
+                <td>
+                    @item.ticket.TkPagoTotal
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #7D888C; color: white">Fecha de Entrega</td>
+                <td>
+                    @item.ticket.TkFechaEntrega
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #7D888C; color: white">Estado</td>
+                <td>
+                    @item.ticket.Estado.NombreEstado
+                </td>
+            </tr>
+                @*
+                <td>
+                    @if (item.Servicio.TarifaxKilo.HasValue)
+                    {
+                        <label>S.</label> @item.Servicio.TarifaxKilo <label>/Kg</label>
+                    }else if (@item.Servicio.TarifaxUnidad.HasValue)
+                    {
+                        <label>S.</label> @item.Servicio.TarifaxUnidad <label>/Und</label>
+                    }else
+                    {
+                        <label>S. 13 /m2</label>
+                    }
+                </td>
+                @if(item.Servicio.Tipo.Equals("Lavado de Alfombras"))
+                {
+                    <td>@(Math.Round(item.PagoParcial/13,2))</td>
+                    <td>m2</td>
+                }else if (item.Servicio.Tipo.Equals("Teñidos"))
+                {
+                    <td>-</td>
+                    <td>1 Und.</td>
+                }else
+                {
+                    @if (item.Kilos.HasValue)
+                    {
+                        <td>@item.Kilos Kg.</td>
+                    }else
+                    {
+                        <td>-</td>
+                    }
+                    @if (item.CantPrendas.HasValue)
+                    {
+                        <td>@item.CantPrendas Und.</td>
+                    }else
+                    {
+                        <td>-</td>
+                    }
+                    @* <td>
+                        
+                        @item.Kilos Kg.
+                    </td>
+                    <td>
+                        @item.CantPrendas Und.
+                    </td> 
+              }*@ @*
+                
+                <td>
+                    S/. @item.PagoParcial
+                </td>*@
+
+
+            
+        }
+        
+            @*
+            <td>
+                Kilos = @Model.Where(x => x.IdServicio.Equals(@ViewBag.numero)).Sum(k => k.Kilos) kg
+            </td>
+            <td>
+                Prendas = @Model.Where(x => x.IdServicio.Equals(@ViewBag.numero)).Sum(p => p.CantPrendas) Und.
+            </td>
+            <td>
+                Pago Total = S/. @Model.Where(x => x.IdServicio.Equals(@ViewBag.numero)).Sum(t => t.PagoParcial)
+            </td>
+            *@
+            
+
+    </tbody>
+</table>
+
+@*
+<a class="btn btn-primary" href="/Servicios/PrintBoleta?nroboleta=@Model.Where(x => x.ServicioId.Equals(@ViewBag.numero)).OrderBy(x=>x.Id).First().ServicioId">Ver</a>
+<div class="text-center">
+    @* <form action="PrintBoleta">
+        <input type="number" name="nroboleta" value="@Model.Where(x => x.BoletaId.Equals(@ViewBag.numero)).OrderBy(x=>x.Id).First().BoletaId" hidden>
+        <button class="btn btn-warning">Ver</button>
+    </form> *@ 
+   @* <form action="PrintBoleta" method="POST">
+        <input type="number" name="nroboleta" value="@Model.Where(x => x.ServicioId.Equals(@ViewBag.numero)).OrderBy(x=>x.Id).First().ServicioId" hidden>
+        <button class="btn btn-secondary">Imprimir</button>
+    </form>
+</div>
+
+@* <a href="/Servicios/PrintBoleta?nroboleta=@Model.Where(x => x.BoletaId.Equals(@ViewBag.numero)).OrderBy(x=>x.Id).First().BoletaId">xd</a> *@
+
+<a style="text-align: center; background-color: #00aae4" class="btn btn-warning" href="/Servicio/servicios" >Volver</a>

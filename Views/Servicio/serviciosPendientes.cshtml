@@ -1,0 +1,40 @@
+@model List<Servicio>
+<h1 class="text-center">Listar Servicios Pendientes</h1>
+
+<h5 class="text-center">@ViewBag.nombrefiltro</h5>
+<table class="table table-hover">
+    <thead class="thead-dark text-center">
+        <th>Nro Boleta</th>
+        <th>Descripción</th>
+        <th>Fecha de Entrega</th>
+        <th>Ver más</th>
+    </thead>
+    <tbody>
+        @foreach (var servicio in Model)
+        {
+            <tr class="text-center">
+                <td>
+                    @servicio.ticket.TkNroBoleta
+                </td>
+                <td>
+                    @servicio.DescServicio
+                </td>
+                <td>
+                    @servicio.ticket.TkFechaEntrega  
+                </td>
+                <td>
+                    <a class="btn btn-warning" href="/Servicio/DetalleServicio?nroservicio=@servicio.Id" >Ver detalle</a>
+                </td>
+            </tr>
+            
+        }
+        <tr class="text-light bg-dark text-center">
+            <td>ID</td>
+            <td>Descripción</td>
+            <td>Fecha de Entrega</td>
+            <td>Ver más</td>
+        </tr>
+    </tbody>
+</table>
+
+<a style="text-align: center;" class="btn btn-warning" href="/Home/Index" >Volver</a>

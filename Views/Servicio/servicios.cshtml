@@ -1,0 +1,62 @@
+@model List<Servicio>
+<h1 class="text-center">Listar Servicios</h1>
+<div class="container">
+    <form method="POST">
+        <div class="row">
+            <div class="col">
+                <label for="">Buscar por:</label>
+                <select name="filtro" id="filtro" class="form-control">
+                    <option value="Todos">Todos</option>
+                    <option value="Dni">DNI Cliente</option>
+                    <option value="Almacen">En Almacén</option>
+                    <option value="Cliente">Apellido del cliente</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="">Ingrese el dato a buscar:</label>
+                <input type="text" name="data" id="data" class="form-control" required>
+            </div>
+        </div>
+        <div class="text-center mt-3 mb-3">
+            <button class="btn btn-primary">Filtrar</button>
+            <a asp-action="servicios" class="btn btn-secondary">Todos los servicios</a>
+        </div>
+    </form>
+</div>
+<h5 class="text-center">@ViewBag.nombrefiltro</h5>
+<table class="table table-hover">
+    <thead class="thead-dark text-center">
+        <th>Nro Boleta</th>
+        <th>Descripción</th>
+        <th>Fecha de Entrega</th>
+        <th>Ver más</th>
+    </thead>
+    <tbody>
+        @foreach (var servicio in Model)
+        {
+            <tr class="text-center">
+                <td>
+                    @servicio.ticket.TkNroBoleta
+                </td>
+                <td>
+                   @servicio.DescServicio
+                </td>
+                <td>
+                    @servicio.ticket.TkFechaEntrega
+                </td>
+                <td>
+                    <a class="btn btn-warning" href="/Servicio/DetalleServicio?nroservicio=@servicio.Id" >Ver detalle</a>
+                </td>
+            </tr>
+            
+        }
+        <tr class="text-light bg-dark text-center">
+            <td>ID</td>
+            <td>Descripción</td>
+            <td>Fecha de Entrega</td>
+            <td>Ver más</td>
+        </tr>
+    </tbody>
+</table>
+
+<a style="text-align: center;" class="btn btn-warning" href="/Home/Index" >Volver</a>

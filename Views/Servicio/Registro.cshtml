@@ -1,0 +1,60 @@
+@model Ticket
+
+<div class="container">
+    <h1 class="text-center">Registrar Servicio</h1>
+    <form method="POST" action="">
+        <div asp-validation-summary="All"></div>
+        <div class="form-group">
+            <label for="">Cliente: </label>
+            <select asp-for="ClienteId" asp-items="ViewBag.clientes" class="form-control"></select>
+        </div>
+        <div class="form-group">
+            <label for="">Fecha: </label>
+            <input type="datetime" value="@ViewBag.fecha" asp-for="TkFechaIngreso" readonly class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Numero boleta: </label>
+            <input asp-for="TkNroBoleta" placeholder="# Boleta" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Almacen: </label>
+            <div class="text-center">
+                <div>
+                    <label class="form-check p-2 btn-info" for="almacen1">
+                        <input class="form-check-input" type="radio" asp-for="AlmacenId" value="1" id="almacen1">
+                        Almacen 1
+                    </label>
+                </div>
+                <div>
+                    <label class="form-check p-2 btn-warning" for="almacen2">
+                        <input class="form-check-input" type="radio" asp-for="AlmacenId" value="2" id="almacen2">
+                        Almacen 2
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <div class="row">
+                <div class="col">
+                    <input type="submit" value="Registrar" class="btn btn-success" asp-route-id="">
+                </div>
+                <div class="col">
+                    <input type="submit" value="Cancelar" class="btn btn-warning">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<style>
+    a {
+    color: white;
+    text-decoration: none;
+}
+    a:hover 
+{
+    color: white;
+    text-decoration:none; 
+    cursor:pointer;  
+}
+</style>

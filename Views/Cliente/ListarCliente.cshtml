@@ -1,0 +1,97 @@
+@model IEnumerable<SwLavanderia.Models.Cliente>
+@{
+    ViewBag.title = "Clientes";
+}
+
+<h1>@ViewBag.title</h1>
+<form method="POST" asp-action="Filtrar">
+    <label >Filtrar por :</label>
+    <select name="idfiltro">
+        <option value="Nombre">Nombre</option>
+        <option value="NroDoc">DNI</option>
+    </select>
+    <input type="text" name="filtro" required>
+    <button>Filtrar</button>
+</form>
+<br>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-hover table-responsive">
+            <tr class="thead-light">
+                <th>#</th>
+                <th class="center" >Tipo de documento</th>
+                <th class="center" >Número de documento</th>
+                <th class="center">Nombre</th>
+                <th class="center">Apellido</th>
+                <th class="center">Correo</th>
+                <th class="center">Número</th>
+                <th class="center">Dirección</th>
+                <th class="center">Distrito</th>
+                <th class="center">Editar/Borrar</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th >
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </th>
+                    <td >
+                        @Html.DisplayFor(modelItem => item.TipoDoc)
+                    </td>
+                    <td >
+                        @Html.DisplayFor(modelItem => item.NroDoc)
+                    </td>
+                    <td >
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td >
+                        @Html.DisplayFor(modelItem => item.Apellido)
+                    </td>
+                    <td >
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td >
+                        @Html.DisplayFor(modelItem => item.Tel)
+                    </td>
+                    <td >
+                        @Html.DisplayFor(modelItem => item.Direccion)
+                    </td>
+                    <td >
+                        @Html.DisplayFor(modelItem => item.Distrito.Nombre)
+                    </td>
+                    <td >
+                        <div class="center">
+                            <button class="btn btn-success"><a asp-action="EditarCliente" asp-route-id="@item.Id">Editar</a></button>
+                        </div>
+                        <div class="center">
+                            <button class="btn btn-warning"><a asp-action="BorrarCliente" asp-route-id="@item.Id">Borrar</a></button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+</div>
+    
+<div style="text-align: right; margin: 10px" >
+    <a asp-action="RegistrarCliente" class="btn btn-primary"> Agregar Nuevo Cliente </a>
+</div>
+        
+<style>
+    a {
+    color: #000000;
+    text-decoration: none;
+}
+    a:hover 
+{
+     color:#000000; 
+     text-decoration:none; 
+     cursor:pointer;  
+}
+
+.center{
+    text-align: center;
+}
+</style>
