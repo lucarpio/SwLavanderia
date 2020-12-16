@@ -1,0 +1,112 @@
+@model List<Servicio>
+
+<div class="container">
+    <div class="text-center">
+        <h1>
+            Registro Servicio
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-7">
+            <label>
+                Boleta Nro:  
+                @ViewBag.NroBoleta
+            </label>
+        </div>
+        <div class="col-5">
+            <label>
+                Total (S/.):  
+                @if (Model.Count()>0)
+                {
+                    <label>@Math.Round(Model.AsQueryable().Sum(x=>x.PrecServicio),2)</label>
+                }else
+                {
+                    <label>0.00</label>
+                }
+            </label>
+        </div>
+    </div>
+</div>
+@* Se mostrara solo si la tabla tiene datos *@
+@if (Model.Count()>0)
+{
+    <div class="table-responsive">
+        <table class="table table-dark">
+            <tr>
+                <th>
+                    Tipo de Servicio
+                </th>
+                <th>
+                    Descripcion
+                </th>
+                <th>
+                    Precio
+                </th>
+                <th>
+                    Editar
+                </th>
+                <th>
+                    Borrar
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.serviciosDisponibles.NomServ
+                    </td>
+                    <td>
+                        @item.DescServicio
+                    </td>
+                    <td>
+                        S/. @item.PrecServicio
+                    </td>
+                    <td>
+                        <button class="btn btn-warning">
+                            Editar
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-warning">
+                            Borrar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="container">
+        <div class="text-center">
+            <button class="btn btn-success"><a asp-action="Detalle" asp-route-boleta="@ViewBag.idBol">Agregar nuevo servicio</a></button>
+            <button class="btn btn-info"><a asp-action="Confirmacion" asp-route-boleta="@ViewBag.idBol">Finalizar</a></button>
+        </div>
+    </div>
+}else
+{
+    <div class="container">
+        <div class="text-center">
+            <img src="https://wowsushi.cl/static/images/cart/empty_cart.png" class="img-fluid">
+            <p>
+                Agregue algunos servicios para guardar el servicio
+            </p>
+            <form action="Detalle" method="get">
+                <a class="btn btn-success" asp-action="Detalle" asp-route-boleta="@ViewBag.idBol">Agregar</a>
+                <input type="submit" value="Cancelar" class="btn btn-danger" asp-action="Confirmacion">
+            </form>
+        </div>
+    </div>
+}
+
+<style>
+    a {
+    color: white;
+    text-decoration: none;
+}
+    a:hover 
+{
+    color: white;
+    text-decoration:none; 
+    cursor:pointer;  
+}
+</style>
+

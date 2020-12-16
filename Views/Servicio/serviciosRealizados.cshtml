@@ -1,0 +1,49 @@
+@model List<Servicio>
+<h1 class="text-center">Reporte de servicios</h1>
+<div class="container">
+    <form method="POST">
+        <div class="row">
+            <div class="col">
+                <label id="fechainicial">Fecha Inicial:</label>
+                <input type="date" name="fechainicial"  class="form-control" id="fechainicial">
+            </div>
+            <div class="col">
+                <label id="fechafinal">Fecha Final:</label>
+                <input type="date" name="fechafinal" class="form-control" id="fechafinal">
+            </div>
+        </div>
+        <div class="text-center mt-3 mb-3">
+            <button class="btn btn-primary" >Filtrar</button>
+        </div>
+        <a class="btn btn-warning" href="/Servicio/serviciosFiltrados" >Mostrar servicios entre este lapso</a>
+    </form>
+</div>
+
+<h5 class="text-center">@ViewBag.nombrefiltro</h5>
+<table class="table table-hover">
+    <thead class="thead-dark text-center">
+        <th>Servicios</th>
+        <th>Cantidad</th>
+    </thead>
+    <tbody>
+        @foreach (var servicio in Model)
+        {
+            <tr class="text-center">
+                <td>
+                    @servicio.serviciosDisponibles.NomServ
+                </td>
+                <td>
+                    1
+                </td>
+            </tr>
+            
+        }
+        <tr class="text-light bg-dark text-center">
+            <td>Servicio</td>
+            <td>Cantidad</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<a style="text-align: center;" class="btn btn-warning" href="/Home/Index" >Volver</a>
