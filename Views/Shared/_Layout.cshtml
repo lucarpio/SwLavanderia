@@ -24,24 +24,38 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="RegistrarCliente">Registrar Cliente</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="ListarCliente">Listar Cliente</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Servicio" asp-action="Registro">Nuevo Servicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Servicio" asp-action="servicios">Listar servicios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Servicio" asp-action="serviciosPendientes">Servicios pendientes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Servicio" asp-action="serviciosRealizados">Servicios realizados</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="RegistrarCliente">Registrar Cliente</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="ListarCliente">Listar Cliente</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Servicio" asp-action="Registro">Nuevo Servicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Servicio" asp-action="servicios">Listar servicios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Servicio" asp-action="serviciosPendientes">Servicios pendientes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Servicio" asp-action="serviciosRealizados">Servicios realizados</a>
+                            </li>
+                            <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Cuenta" asp-action="Logout">Cerrar sesión (@User.Identity.Name)</a>
+                            </li>
+                        }else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Cuenta" asp-action="Registro">Crear cuenta</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Cuenta" asp-action="Acceso">Iniciar sesión</a>
+                            </li> 
+                        }
                     </ul>
                 </div>
             </div>
