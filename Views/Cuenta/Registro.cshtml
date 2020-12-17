@@ -1,0 +1,60 @@
+@{
+    ViewBag.title = "Registro de usuario";
+}
+
+<h1 class="text-center">@ViewBag.title</h1>
+
+
+
+<form action="" method="post">
+
+    <div asp-validation-summary="All"></div>
+
+    <div class="form-group">
+        <label for="username">Nombre(s):</label>
+        <input type="text" name="nombre" id="username" placeholder="Nombre" class="form-control" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="apellido">Apellido:</label>
+        <input type="text" name="apellido" id="apellido" placeholder="Apellido" class="form-control" required>
+    </div>
+    
+    <div class="form-group">
+            <label for="TipoDoc">Documento:</label>
+            <select for="TipoDoc" name=tipdoc class="form-control">
+                <option value="Dni">Dni</option>
+                <option value="Cne">Cne</option>
+                <option value="Pasaporte">Pasaporte</option>
+            </select>
+    </div>
+
+
+    <div class="form-group">
+            <label for="NroDoc">Numero de Documento*:</label>
+            <input for="NroDoc" name=nrodoc type="tel" placeholder="Numero de Documento" class="form-control" required>
+    </div>
+    
+    
+    <div class="form-group">
+        <label for="pwd">Contraseña:</label>
+        <input type="password" name="pwd" id="pwd" class="form-control" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="pwd"> Confirmar Contraseña:</label>
+        <input type="password" name="pwdconfirm" id="pwd" class="form-control" required>
+    </div>
+    
+    <div class="text-center pt-3">
+        <div style="margin-bottom: 3px; ">
+            <input style="padding-left: 30px; padding-right: 30px;" type="submit" class="btn btn-primary" value= "Registrar">
+        </div>
+        
+</form>
+        <div style="padding: 10px;">
+            <input style="padding-left: 41px; padding-right: 41px;" type="button" class="btn btn-primary" value="Inicio" onclick="location.href='@Url.Action("Index","Home")'" >
+        </div>
+    </div>
+
+
