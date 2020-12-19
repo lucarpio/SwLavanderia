@@ -31,7 +31,7 @@ namespace SwLavanderia.Controllers
                 
                 if(result.Succeeded)
                 {
-                    return RedirectToAction("index","home");
+                    return RedirectToAction("Acceso","cuenta");
                 }
                 foreach (var error in result.Errors)
                 {

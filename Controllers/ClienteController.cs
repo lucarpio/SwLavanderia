@@ -80,7 +80,6 @@ namespace SwLavanderia.Controllers
             {
                 _context.Update(objCliente);
                 _context.SaveChanges();
-                ViewData["Message"] = "Success";
                 return RedirectToAction("ListarCliente");   
             }
             var distritos = _context.Distritos.ToList();
