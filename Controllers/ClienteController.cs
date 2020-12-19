@@ -27,23 +27,22 @@ namespace SwLavanderia.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult RegistrarCliente(Cliente objCliente)
         {
-           
-            var distritos = _context.Distritos.ToList();
-            ViewBag.Distrito = distritos.Select(d => new SelectListItem(d.Nombre, d.Id.ToString()));
-
             
             if (_context.Clientes.Any(a => a.NroDoc == objCliente.NroDoc))
             {
                 ModelState.AddModelError("NroDoc","Ya existe un Documento con ese número");
+            }else{
+                if(ModelState.IsValid)
+                {
+                    _context.Add(objCliente);
+                    _context.SaveChanges();
+                    ViewBag.Message = "Registro del cliente exitoso";
+                    return View();    
+                }
             }
-            
-            if(ModelState.IsValid)
-            {
-                _context.Add(objCliente);
-                _context.SaveChanges();
-                ViewData["Message"] = "Success";
-                return View();    
-            }
+
+            var distritos = _context.Distritos.ToList();
+            ViewBag.Distrito = distritos.Select(d => new SelectListItem(d.Nombre, d.Id.ToString()));
             return View();
             
         }
@@ -81,7 +80,6 @@ namespace SwLavanderia.Controllers
             {
                 _context.Update(objCliente);
                 _context.SaveChanges();
-                ViewData["Message"] = "Success";
                 return RedirectToAction("ListarCliente");   
             }
             var distritos = _context.Distritos.ToList();

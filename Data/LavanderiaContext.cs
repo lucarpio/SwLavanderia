@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using SwLavanderia.Models;
 
 namespace SwLavanderia.Data
 {
-    public class LavanderiaContext : DbContext
+    public class LavanderiaContext : IdentityDbContext
     {
         public DbSet<Almacen> Almacenes {get; set; }
         public DbSet<Cliente> Clientes { get; set; }

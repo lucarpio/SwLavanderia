@@ -7,7 +7,7 @@
 <div class="container">
     
     <input type="button" class="btn btn-secondary" value="Limpiar campos" onclick="location.href='@Url.Action("RegistrarCliente","Cliente")'" >
-    <br><br><br>
+    <br><br>
     <form asp-action="RegistrarCliente" id="test-form" method="post">
         <div class="form-group">
             <label asp-for="Nombre">Nombre(s)*:</label>
@@ -63,20 +63,19 @@
         <small><strong><span asp-validation-for="Email" class="text-danger"></span></strong></small>
         </div>
 
-        @if (ViewData["Message"] != null) {
-            <script> 
-                alert("Registro exitoso") 
-            </script>
-        }   
-
         <div>
-        <button type="submit" class="btn btn-info">Registrar</button>
+        
+        @if(ViewBag.Message != null){
+            <script type="text/javascript">
+                   alert("@ViewBag.Message");
+            </script>
+        }
+
+        <button type="submit" class="btn btn-info" >Registrar</button>
     </form>
     
         <input type="button" class="btn btn-info" value="Inicio" onclick="location.href='@Url.Action("Index","Home")'" >
 
         <input type="button" class="btn btn-info" value="Ver Lista de Clientes" onclick="location.href='@Url.Action("ListarCliente","Cliente")'" >
-        </div>
-    
-         
+        </div>   
 </div>
