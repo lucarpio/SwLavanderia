@@ -27,7 +27,7 @@ namespace SwLavanderia
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<LavanderiaContext>(dbo => dbo.UseNpgsql(Configuration.GetConnectionString("Pruebas-db")));
+            services.AddDbContext<LavanderiaContext>(dbo => dbo.UseNpgsql(Configuration.GetConnectionString("Identity-db")));
             services.AddIdentity<IdentityUser, IdentityRole>()
                     .AddEntityFrameworkStores<LavanderiaContext>()
                     .AddDefaultTokenProviders();
@@ -51,7 +51,7 @@ namespace SwLavanderia
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
