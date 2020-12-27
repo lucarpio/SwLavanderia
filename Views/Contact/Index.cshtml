@@ -1,0 +1,52 @@
+@model Contact
+<h3>Notificaciones</h3>
+@ViewBag.msg
+<form method ="post" enctype = "multipart/form-data" asp-controller="contact" asp-action="send">
+    <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Nro de Boleta</label>
+    <div class="col-sm-10">
+      <select asp-for="Phone" asp-items="ViewBag.boletas" class="form-control"></select>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Tipo de mensaje</label>
+    <div class="col-sm-10">
+      <input class="form-control" type="text" asp-for="Address" value="Servicio sin recoger">
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Medio</label>
+    <div class="col-sm-10">
+      <input class="form-control" type="text" asp-for="Subject" value="Gmail">
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-10">
+      <input class="form-control" type="text" asp-for="Email" >
+    </div>
+  </div>
+  <button class="btn-danger" value="Send">Enviar</button>
+   @* <table>
+        <tr>
+            <td>Nro de Boleta</td>
+            <td><input type="number" asp-for="Phone" /></td>
+        </tr>
+        <tr>
+            <td>Tipo de mensaje</td>
+            <td><input type="text" asp-for="Address" value="Servicio sin recoger"/></td>
+        </tr>
+        <tr>
+            <td>Medio</td>
+            <td><input type="text" asp-for="Subject" value="Gmail"/></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="email" asp-for="Email" /></td>
+        </tr>
+        <tr>
+            <td valign="top">&nbsp;</td>
+            <td><input type="submit" value="Send"></td>
+        </tr>
+    </table> *@
+</form>
