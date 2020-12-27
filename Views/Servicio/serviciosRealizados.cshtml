@@ -26,7 +26,7 @@
         <th>Cantidad</th>
     </thead>
     <tbody>
-        @foreach (var servicio in Model)
+        @foreach (var servicio in Model.Distinct())
         {
             <tr class="text-center">
                 <td>

@@ -126,6 +126,58 @@ namespace SwLavanderia.Controllers
             return RedirectToAction("Index","Home");
         }
 
+        public IActionResult ModificarEstadoServicio(Ticket objTicket)
+        {
+            var Estado = true;
+            ViewBag.Peticion = Estado;
+            if(Estado == true){
+
+            }
+
+            if(_context.Tickets.Find(objTicket.Id) == null) //REVISA SI EXISTE LA BOLETA
+            {
+                return View();
+            }else{
+                ViewBag.Peticion = false;
+                ViewBag.NUMEROBOLETA = objTicket.TkNroBoleta;
+                ViewBag.CLIENTE = objTicket.Cliente.Nombre+" "+objTicket.Cliente.Apellido+" "+objTicket.Cliente.NroDoc;
+                ViewBag.ESTADOS = _context.ServiciosDisponibles.ToList().Select(x=> new SelectListItem(x.NomServ,x.Id.ToString()));
+                return View(objTicket);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ModificarEstadoServicio(int nroboleta, Ticket objBoleta)
+        {
+            ViewBag.NUMEROBOLETA = objBoleta.TkNroBoleta;
+                ViewBag.CLIENTE = objBoleta.Cliente.Nombre+" "+objBoleta.Cliente.Apellido+" "+objBoleta.Cliente.NroDoc;
+                ViewBag.ESTADOS = _context.ServiciosDisponibles.ToList().Select(x=> new SelectListItem(x.NomServ,x.Id.ToString()));
+            return Json(objBoleta);
+            // return RedirectToAction("ModificarEstadoServicio");
+            // ViewBag.ServiciosDisponibles = listarServDispo().Select(serv => new SelectListItem(serv.NomServ, serv.Id.ToString()));
+            // var check = _context.Tickets.Find(nroboleta);
+            // if(check != null)
+            // {
+                
+            //     return RedirectToAction("InfoEstadoServicio", check);
+            // }else
+            // {
+            //     ModelState.AddModelError("TkNroBoleta","Boleta no encontrada");
+            //     return View();
+            // }
+        }
+
+        // public IActionResult InfoEstadoServicio(Ticket objBoleta)
+        // {
+        //     ViewBag.ServiciosDisponibles = listarServDispo().Select(serv => new SelectListItem(serv.NomServ, serv.Id.ToString()));
+        //     return View(objBoleta);
+        // }
+        // [HttpPost]
+        // public IActionResult InfoEstadoServicio(Ticket objBoleta, int nro)
+        // {
+        //     ViewBag.ServiciosDisponibles = listarServDispo().Select(serv => new SelectListItem(serv.NomServ, serv.Id.ToString()));
+        //     return View(objBoleta);
+        // }
 // ----------------------------------------------------------METODOS------------------------------------------------------------------
         bool checkTicket(int n)
         {
@@ -206,7 +258,7 @@ namespace SwLavanderia.Controllers
 
         public IActionResult serviciosRealizados()
         {
-           var listServicios = _context.Servicios.Include(q => q.ticket).Include(q => q.serviciosDisponibles).ToList();
+            var listServicios = _context.Servicios.Include(q => q.ticket).Include(q => q.serviciosDisponibles).ToList();
             return View(listServicios);
         }
 

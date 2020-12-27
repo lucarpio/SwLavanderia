@@ -1,0 +1,38 @@
+@model Ticket
+
+<div class="container">
+    <h1 class="text-center">
+        Estado de servicio
+    </h1>
+    @if(ViewBag.Peticion){
+        <form action="" method="get">
+            <div class="form-group">
+                <label for="">Numero de boleta: </label>
+                <input asp-for="TkNroBoleta" class="form-control">
+            </div>
+            <div class="text-center">
+                <input type="submit" value="Buscar" class="btn btn-info">
+                <button class="btn btn-warning">Volver</button>
+            </div>
+        </form>
+    }else{
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="">Numero de boleta: </label>
+                <label for="">@ViewBag.NUMEROBOLETA</label>
+            </div>
+            <div class="form-group">
+                <label for="">Cliente: </label>
+                <label for="">@ViewBag.CLIENTE</label>
+            </div>
+            <div class="form-group">
+                <label for="">Estado: </label>
+                <select asp-for="EstadoId" asp-items="@ViewBag.ESTADOS"></select>
+            </div>
+            <div class="text-center">
+                <input type="submit" value="Modificar estado" class="btn btn-info">
+                <button class="btn btn-warning">Volver</button>
+            </div>
+        </form>
+    }
+</div>
