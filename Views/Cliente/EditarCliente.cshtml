@@ -1,6 +1,6 @@
 @model Cliente
 @{
-    ViewData["title"] = "Registrar Cliente";
+    ViewData["title"] = "Editar Cliente";
 }
 
 <h1 class="text-center">@ViewData["title"]</h1>
@@ -67,12 +67,10 @@
         <small><strong><span asp-validation-for="Email" class="text-danger"></span></strong></small>
         </div>
 
-        @if (ViewData["Message"] != null) {
-            <script> alert("Cambio realizado") </script>
-        }   
+        
 
         <div class="text-center pt-3">
-        <input type="submit" class="btn btn-info">
+        <input type="submit" class="btn btn-info" value="Editar">
     </form>
 
     
