@@ -1,9 +1,12 @@
 @model List<Cliente>
-@{
-    ViewBag.title = "Clientes";
-}
 
-<h1>@ViewBag.title</h1>
+
+<div class="text-center">
+        <h1>
+            Listar Clientes
+        </h1>
+</div>
+
 <form method="POST" asp-action="Filtrar">
     <label >Filtrar por :</label>
     <select name="idfiltro">
@@ -11,7 +14,7 @@
         <option value="NroDoc">Número de identidad</option>
     </select>
     <input type="text" name="filtro" required>
-    <button>Filtrar</button>
+    <button class="btn btn-primary">Filtrar</button>
 </form>
 <br>
 
@@ -48,9 +51,13 @@
                                 <br>
                                 Número de documento: @Html.DisplayFor(modelItem => Model[i+j].NroDoc)
                                 <br>
-                                Dirección: @Html.DisplayFor(modelItem => Model[i+j].Direccion)
+                                Dirección: 
                                 <br>
-                                Teléfono: @Html.DisplayFor(modelItem => Model[i+j].Tel)
+                                @Html.DisplayFor(modelItem => Model[i+j].Direccion)
+                                <br>
+                                Teléfono: 
+                                <br>
+                                @Html.DisplayFor(modelItem => Model[i+j].Tel)
                                 <br>
                                 Email: 
                                 <br>
@@ -64,7 +71,7 @@
                                     <button class="btn btn-success"><a asp-action="EditarCliente" asp-route-id="@Model[i+j].Id">Editar</a></button>
                                 </div>
                                 <div class="col-3">
-                                    <button class="btn btn-warning" onclick="return confirmarEliminar()"> <a asp-action="BorrarCliente" asp-route-id="@Model[i+j].Id">Borrar</a></button>
+                                    <button class="btn btn-warning"  onclick="return confirmarEliminar()"> <a asp-action="BorrarCliente" asp-route-id="@Model[i+j].Id">Borrar</a></button>
                                 </div>
                                 
                             </div>

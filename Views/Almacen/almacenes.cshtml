@@ -1,0 +1,148 @@
+
+@{
+    ViewBag.title = "Capacidad de almacenes";
+}
+<div class="text-center">
+    <h1>@ViewBag.title</h1>
+</div>
+
+<br><br>
+
+
+<div class="container">
+    <div class="col-12">
+        
+
+        <!--
+        <input class="none" type="button" value="Mostrar Información del almacén" onclick="mostrar();">
+        <input class="none" type="button" value="Ocultar Información del almacén" onclick="ocultar();">
+        <div id = "MostrarOcultar" style="background-color: blue; color : white">
+        -->
+        
+        <h2 style="text-align: center; background-color: #C7FFFF; color: blue;">
+            Almacén 1
+        </h2>
+       
+        <table style="width: 100%;" class="table table-hover" border="5">
+                <tr>
+                    <th style="width: 10%; background-color: #7D888C;">
+                        <h5 style="color: white; text-align: center; ">
+                            Estado: 
+                        </h5> 
+                    </th>
+                    <td style="width: 25%; text-align: center;">
+                        @ViewBag.cantidadalmacen1/78
+                    </td>
+                </tr>
+                
+                <tr>
+                    <th style="width: 10%; background-color: #7D888C;">
+                        <h5 style="color: white; text-align: center;">
+                            Porcentaje: 
+                        </h5> 
+                    </th>
+                    <td style="width: 25%; text-align: center;">
+                        @ViewBag.almacenes1 % ocupado
+                    </td>
+                    
+                </tr>
+
+                <tr>
+                    <th style="width: 10%; background-color: #7D888C;"> 
+                        <h5 style="color: white; text-align: center;">
+                            Disponibles:
+                        </h5>
+                    </th>
+                    <td style="width: 25%; text-align: center;">
+                        @ViewBag.restante1 espacios
+                    </td>
+                    
+                </tr>
+        </table>
+        
+        @if (ViewBag.mensaje1 != null)
+        {
+            <div>
+                <h6>Almacén lleno</h6>
+            </div>
+        } 
+       
+
+        
+        
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+
+    <div class="col-12">
+        
+        <h2 style="text-align: center; background-color: #C7FFFF; color:blue;" >
+            Almacén 2
+        </h2>
+        <table style="width: 100%;" class="table table-hover" border="5">
+                
+                <tr>
+                    <th style="width: 10%; background-color: #7D888C;">
+                        <h5 style="color: white; text-align: center;">
+                            Estado: 
+                        </h5> 
+                    </th>
+                    <td style="width: 25%; text-align: center;">
+                        @ViewBag.cantidadalmacen2/100
+                    </td>
+                </tr>
+                
+                <tr>
+                    <th style="width: 10%; background-color: #7D888C;">
+                        <h5 style="color: white;text-align: center;">
+                            Porcentaje: 
+                        </h5> 
+                    </th>
+                    <td style="width: 25%; text-align: center;">
+                        @ViewBag.almacenes2 % ocupado
+                    </td>
+                    
+                </tr>
+
+                <tr>
+                    <th style="width: 10%; background-color: #7D888C;"> 
+                        <h5 style="color: white; text-align: center;">
+                            Disponibles: 
+                        </h5> 
+                    </th>
+                    <td style="width: 25%; text-align: center;">
+                        @ViewBag.restante2 espacios
+                    </td>
+                    
+                </tr>
+        </table>
+
+
+        @if (ViewBag.mensaje2 != null)
+        {
+            <div>
+                <h6>Almacén lleno</h6>
+            </div>
+        } 
+
+
+    </div>
+
+    
+</div>
+
+<div style="text-align: right; margin: 10px" >
+    <a asp-controller="Servicio" asp-action="Registro" class="btn btn-primary"> Agregar Nuevo Servicio </a>
+</div>
+
+<script>
+    function ocultar(){
+        document.getElementById('MostrarOcultar').style.display="none";
+    }
+    function mostrar(){
+        document.getElementById('MostrarOcultar').style.display="block";
+    }
+</script>
