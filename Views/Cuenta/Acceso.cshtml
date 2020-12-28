@@ -1,35 +1,58 @@
 @{
     ViewBag.title = "Iniciar Sesion";
+     Layout = "_Layout";
 }
+<link rel="stylesheet" type="text/css" href="estilo.css">
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    height: 100vh;
+  }
+  #login .container #login-row #login-column #login-box {
+    margin-top: 120px;
+    max-width: 600px;
+    height: 320px;
+    border: 1px solid #04A2E7;
+    background-color: #EAEAEA;
+  }
+  #login .container #login-row #login-column #login-box #login-form {
+    padding: 20px;
+  }
+  #login .container #login-row #login-column #login-box #login-form #register-link {
+    margin-top: -85px;
+  }
 
+</style>
 
-<div class="text-center" style="margin-top: 20px; margin-bottom: 20px;">
-    <img src="/imagenes/LogoBurbujas1.png" width="60%" height="auto" alt="logo">
-</div>
-
-<h1 class="text-center">@ViewBag.title</h1>
-
-<form action="" method="POST">
-
-    <div asp-validation-summary="All"></div>
-    
-    <div class="form-group">
-        <label for="username">Usuario:</label>
-        <input type="text" name="username" id="username" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label for="pwd">Contraseña:</label>
-        <input type="password" name="pwd" id="pwd" class="form-control" required>
-    </div>
-    
-    <div class="text-center pt-3">
-    
-        <div style="margin-bottom: 3px; ">
-            <input style="padding-left: 41px; padding-right: 41px;" type="submit" class="btn btn-primary" value= "Ingresar">
+<body>
+    <div id="login">
+                <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="" method="post">
+                           
+                              <div asp-validation-summary="All"></div>
+                            <h3 class="text-center text-info">Iniciar sesión</h3>
+                               <div class="form-group">
+                                <label for="username" class="text-info">Usuario:</label><br>
+                                <input type="text" name="username" id="username" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                               <label for="username" class="text-info">Contraseña:</label><br>
+                                <input type="password" name="pwd" id="pwd" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                               
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Ingresar" onclick="location.href='@Url.Action("Registro","Cuenta")'" >
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-</form>
-        <div>
-            <input style="padding-left: 50px; padding-right: 50px;" type="button" class="btn btn-primary" value="Inicio" onclick="location.href='@Url.Action("Registro","Cuenta")'" >
-        </div>
     </div>
-
+</body>
