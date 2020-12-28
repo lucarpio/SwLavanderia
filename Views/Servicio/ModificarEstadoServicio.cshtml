@@ -9,6 +9,7 @@
             <div class="form-group">
                 <label for="">Numero de boleta: </label>
                 <input asp-for="TkNroBoleta" class="form-control">
+                <small>@Html.ValidationMessageFor(m=>m.TkNroBoleta)</small>
             </div>
             <div class="text-center">
                 <input type="submit" value="Buscar" class="btn btn-info">
@@ -18,21 +19,27 @@
     }else{
         <form action="" method="POST">
             <div class="form-group">
-                <label for="">Numero de boleta: </label>
-                <label for="">@ViewBag.NUMEROBOLETA</label>
+                <label> Numero de boleta: </label>
+                <label> @ViewBag.NUMEROBOLETA</label>
             </div>
             <div class="form-group">
-                <label for="">Cliente: </label>
-                <label for="">@ViewBag.CLIENTE</label>
+                <label> Cliente: </label>
+                <label> @ViewBag.CLIENTE</label>
             </div>
             <div class="form-group">
-                <label for="">Estado: </label>
+                <label> Estado: </label>
                 <select asp-for="EstadoId" asp-items="@ViewBag.ESTADOS"></select>
             </div>
             <div class="text-center">
-                <input type="submit" value="Modificar estado" class="btn btn-info">
+                <input type="submit" value="Modificar estado" class="btn btn-info" onclick="alerta()">
                 <button class="btn btn-warning">Volver</button>
             </div>
         </form>
     }
 </div>
+
+<script>
+    function alerta(){
+        alert("Estado cambiado con exito!")
+    }
+</script>

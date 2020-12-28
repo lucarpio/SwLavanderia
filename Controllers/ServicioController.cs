@@ -130,54 +130,45 @@ namespace SwLavanderia.Controllers
         {
             var Estado = true;
             ViewBag.Peticion = Estado;
-            if(Estado == true){
-
-            }
-
-            if(_context.Tickets.Find(objTicket.Id) == null) //REVISA SI EXISTE LA BOLETA
+            if(objTicket.TkNroBoleta != 0)//SE BUSCA EL TICKET
             {
-                return View();
-            }else{
-                ViewBag.Peticion = false;
-                ViewBag.NUMEROBOLETA = objTicket.TkNroBoleta;
-                ViewBag.CLIENTE = objTicket.Cliente.Nombre+" "+objTicket.Cliente.Apellido+" "+objTicket.Cliente.NroDoc;
-                ViewBag.ESTADOS = _context.ServiciosDisponibles.ToList().Select(x=> new SelectListItem(x.NomServ,x.Id.ToString()));
+                objTicket = _context.Tickets.Include(x=>x.Cliente).Include(y=>y.Estado).Where(x=>x.TkNroBoleta == objTicket.TkNroBoleta).FirstOrDefault();//BUSCAR
+                if(objTicket == null)//NO ENCUENTRA EL TICKET
+                {
+                    ModelState.AddModelError("TkNroBoleta", "Boleta no encontrada");
+                    Estado = true; // si no existe manda a formulario GET
+                }else//ENCUENTRA EL TICKET
+                {
+                    ViewBag.NUMEROBOLETA = objTicket.TkNroBoleta;
+                    ViewBag.CLIENTE = objTicket.Cliente.Nombre+" "+objTicket.Cliente.Apellido+" "+objTicket.Cliente.NroDoc;
+                    ViewBag.ESTADOS = _context.Estados.ToList().Select(x=> new SelectListItem(x.NombreEstado,x.Id.ToString()));
+                    Estado = false; // si existe manda a formulario POST
+                }
+                ViewBag.Peticion = Estado;
+                // return Json(objTicket);
                 return View(objTicket);
+            }else//NO SE BUSCA TICKET = PRIMERA VEZ QUE ENTRA
+            {
+                ViewBag.Peticion = Estado;
+                return View();
             }
         }
 
         [HttpPost]
         public IActionResult ModificarEstadoServicio(int nroboleta, Ticket objBoleta)
         {
-            ViewBag.NUMEROBOLETA = objBoleta.TkNroBoleta;
-                ViewBag.CLIENTE = objBoleta.Cliente.Nombre+" "+objBoleta.Cliente.Apellido+" "+objBoleta.Cliente.NroDoc;
-                ViewBag.ESTADOS = _context.ServiciosDisponibles.ToList().Select(x=> new SelectListItem(x.NomServ,x.Id.ToString()));
-            return Json(objBoleta);
-            // return RedirectToAction("ModificarEstadoServicio");
-            // ViewBag.ServiciosDisponibles = listarServDispo().Select(serv => new SelectListItem(serv.NomServ, serv.Id.ToString()));
-            // var check = _context.Tickets.Find(nroboleta);
-            // if(check != null)
-            // {
-                
-            //     return RedirectToAction("InfoEstadoServicio", check);
-            // }else
-            // {
-            //     ModelState.AddModelError("TkNroBoleta","Boleta no encontrada");
-            //     return View();
-            // }
+            var objayuda = new Ticket();
+            ViewBag.Peticion = true;
+            objayuda = _context.Tickets.Include(x=>x.Cliente).Include(y=>y.Estado).Where(x=>x.TkNroBoleta == objBoleta.TkNroBoleta).FirstOrDefault();//BUSCAR
+            ViewBag.NUMEROBOLETA = objayuda.TkNroBoleta;
+            ViewBag.CLIENTE = objayuda.Cliente.Nombre+" "+objayuda.Cliente.Apellido+" "+objayuda.Cliente.NroDoc;
+            ViewBag.ESTADOS = _context.ServiciosDisponibles.ToList().Select(x=> new SelectListItem(x.NomServ,x.Id.ToString()));
+            objayuda.EstadoId = objBoleta.EstadoId;
+            _context.Update(objayuda);
+            _context.SaveChanges();
+            return View();
         }
 
-        // public IActionResult InfoEstadoServicio(Ticket objBoleta)
-        // {
-        //     ViewBag.ServiciosDisponibles = listarServDispo().Select(serv => new SelectListItem(serv.NomServ, serv.Id.ToString()));
-        //     return View(objBoleta);
-        // }
-        // [HttpPost]
-        // public IActionResult InfoEstadoServicio(Ticket objBoleta, int nro)
-        // {
-        //     ViewBag.ServiciosDisponibles = listarServDispo().Select(serv => new SelectListItem(serv.NomServ, serv.Id.ToString()));
-        //     return View(objBoleta);
-        // }
 // ----------------------------------------------------------METODOS------------------------------------------------------------------
         bool checkTicket(int n)
         {
