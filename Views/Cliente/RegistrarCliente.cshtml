@@ -5,8 +5,7 @@
 
 <h1 class="text-center">@ViewData["title"]</h1>
 <div class="container">
-    
-    <input type="button" class="btn btn-secondary" value="Limpiar campos" onclick="location.href='@Url.Action("RegistrarCliente","Cliente")'" >
+    @* <input type="button" class="btn btn-secondary" value="Limpiar campos" onclick="location.href='@Url.Action("RegistrarCliente","Cliente")'" > *@
     <br><br>
     <form asp-action="RegistrarCliente" id="test-form" method="post">
         <div class="form-group">

@@ -18,7 +18,7 @@
  </style>
 
 @model Contact
-
+<div style="color: black;">
 <h3>Notificaciones</h3>
 @ViewBag.msg
 <form method ="post" enctype = "multipart/form-data" asp-controller="contact" asp-action="send">
@@ -83,3 +83,5 @@
         </tr>
     </table> *@
 </form>
+
+</div>

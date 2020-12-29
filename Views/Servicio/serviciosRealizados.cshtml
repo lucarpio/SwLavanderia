@@ -1,7 +1,12 @@
 @model List<Servicio>
-<h1 class="text-center">Reporte de servicios</h1>
+
+@* Titulo *@
+<h1 class="text-center">Reporte de servicios</h1> 
+
+@* body *@
 <div class="container">
     <form method="POST">
+        <div asp-validation-summary="All"></div>
         <div class="row">
             <div class="col">
                 <label id="fechainicial">Fecha Inicial:</label>
@@ -13,7 +18,7 @@
             </div>
         </div>
         <div class="text-center mt-3 mb-3">
-            <button class="btn btn-primary" >Filtrar</button>
+            <input type="submit" value="Filtrar" class="btn btn-success">
         </div>
     </form>
 </div>
@@ -25,7 +30,7 @@
         <th>Cantidad</th>
     </thead>
     <tbody>
-        @foreach (var servicio in Model.Distinct())
+        @foreach (var servicio in Model)
         {
             <tr class="text-center">
                 <td>

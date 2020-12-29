@@ -17,36 +17,34 @@
             </div>
         </form>
     }else{
+        <br>
+        <br>
         <form action="" method="POST">
-            <div class="form-group">
-                <label> Numero de boleta: </label>
-                <label> @ViewBag.NUMEROBOLETA</label>
-            </div>
-            <div class="form-group">
-                <label> Cliente: </label>
-                <label> @ViewBag.CLIENTE</label>
-            </div>
-            <div class="form-group">
-                <label> Precio Total: </label>
-                <label> @ViewBag.PRECIOTOTAL</label>
-            </div>
-            <div class="form-group">
-                <label> Fecha de entrega: </label>
-                <label> @ViewBag.FECHAENTREGA</label>
-            </div>
-            <div class="form-group">
-                <label> Estado: </label>
-                <label> @ViewBag.ESTADOS</label>
-            </div>
-            <div class="text-center">
-                <button class="btn btn-warning">Volver</button>
-            </div>
+            <h6>
+                <div class="form-group">
+                    <label> Numero de boleta: </label>
+                    <label> @ViewBag.NUMEROBOLETA</label>
+                </div>
+                <div class="form-group">
+                    <label> Cliente: </label>
+                    <label> @ViewBag.CLIENTE</label>
+                </div>
+                <div class="form-group">
+                    <label> Precio Total: </label>
+                    <label> @ViewBag.PRECIOTOTAL</label>
+                </div>
+                <div class="form-group">
+                    <label> Fecha de entrega: </label>
+                    <label> @ViewBag.FECHAENTREGA</label>
+                </div>
+                <div class="form-group">
+                    <label> Estado: </label>
+                    <label> @ViewBag.ESTADOS</label>
+                </div>
+                <div class="text-center">
+                    <input type="button" class="btn btn-info" value="Inicio" onclick="location.href='@Url.Action("Index","Home")'" >
+                </div>
+            </h6>
         </form>
     }
 </div>
-
-<script>
-    function alerta(){
-        alert("Estado cambiado con exito!")
-    }
-</script>

@@ -21,7 +21,7 @@ namespace SwLavanderia.Controllers
         public IActionResult Registro()
         {
             //aca se ve el formulario de registro de almacen
-            ViewBag.fecha = System.DateTime.Now;
+            ViewBag.fecha = System.DateTime.Today.ToShortDateString();
             ViewBag.clientes = listarClientes().Select(client => new SelectListItem(client.NroDoc+" "+client.Nombre+" "+client.Apellido, client.Id.ToString()));
             return View();
         }
@@ -142,7 +142,6 @@ namespace SwLavanderia.Controllers
                     ViewBag.NUMEROBOLETA = objTicket.TkNroBoleta;
                     ViewBag.CLIENTE = objTicket.Cliente.Nombre+" "+objTicket.Cliente.Apellido+" "+objTicket.Cliente.NroDoc;
                     ViewBag.ESTADOS = _context.Estados.ToList().Select(x=> new SelectListItem(x.NombreEstado,x.Id.ToString()));
-                   
                     Estado = false; // si existe manda a formulario POST
                 }
                 ViewBag.Peticion = Estado;
@@ -188,7 +187,7 @@ namespace SwLavanderia.Controllers
                     ViewBag.CLIENTE = objTicket.Cliente.Nombre+" "+objTicket.Cliente.Apellido+" "+objTicket.Cliente.NroDoc;
                     ViewBag.ESTADOS = objTicket.Estado.NombreEstado;
                     ViewBag.PRECIOTOTAL = objTicket.TkPagoTotal;
-                    ViewBag.FECHAENTREGA = objTicket.TkFechaEntrega;
+                    ViewBag.FECHAENTREGA = objTicket.TkFechaEntrega.Value.ToShortDateString();
                     Estado = false; // si existe manda a formulario POST
                 }
                 ViewBag.Peticion = Estado;
@@ -272,7 +271,7 @@ namespace SwLavanderia.Controllers
         {
             var servicios = _context.Servicios.Include(x => x.ticket.Cliente).Include(x => x.ticket.Almacen).ToList();
 
-                 if (filtro.Equals("Dni"))
+                if (filtro.Equals("Dni"))
                 {
                     servicios = servicios.Where(x => x.ticket.Cliente.TipoDoc.Equals("Dni") && x.ticket.Cliente.NroDoc.Equals(data)).ToList();
                 }
@@ -309,26 +308,26 @@ namespace SwLavanderia.Controllers
             
             int result = DateTime.Compare(fechainicial, fechafinal);
             
-            if(fechainicial <= fechafinal && fechafinal >= fechainicial)
+            if(fechainicial <= fechafinal || fechafinal >= fechainicial)
             {
-                servicios = _context.Servicios.Where(x => x.ticket.TkFechaIngreso.Date.Equals(fechainicial.Date) && x.ticket.TkFechaEntrega.Equals(fechafinal)).ToList();        
+                servicios = servicios.Where(x=> x.ticket.TkFechaIngreso >= fechainicial && x.ticket.TkFechaIngreso <= fechafinal).ToList();
             }
-            else if (fechainicial >= fechafinal && fechafinal <= fechainicial){
-                return View("Ingresar lapso de tiempo válido");
+            else if (fechainicial >= fechafinal || fechafinal <= fechainicial){
+                ModelState.AddModelError("TkFechaIngreso", "Ingresar lapso de tiempo válido");
+                return View(servicios);
             }
 
             return View(servicios);
-            
+            // Ticket objPrueba = new Ticket();
+            // objPrueba.TkFechaIngreso = fechainicial;
+            // objPrueba.TkFechaEntrega = fechafinal;
+            // return Json(objPrueba);
         }
 
         public IActionResult serviciosFiltrados()
         {
-             var detalledeservicio = _context.Servicios.Include(q => q.serviciosDisponibles).Include(q => q.ticket.Servicios).ToList();
-
-            
-
-           return View();
-           
+            var detalledeservicio = _context.Servicios.Include(q => q.serviciosDisponibles).Include(q => q.ticket.Servicios).ToList();
+            return View();
         }
 
 
