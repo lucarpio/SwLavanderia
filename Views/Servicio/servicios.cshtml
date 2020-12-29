@@ -42,7 +42,10 @@
                    @servicio.DescServicio
                 </td>
                 <td>
-                    @servicio.ticket.TkFechaEntrega
+                    @if (servicio.ticket.TkFechaEntrega.HasValue)
+                    {
+                        @servicio.ticket.TkFechaEntrega.Value.ToShortDateString()
+                    }
                 </td>
                 <td>
                     <a class="btn btn-warning" href="/Servicio/DetalleServicio?nroservicio=@servicio.Id" >Ver detalle</a>

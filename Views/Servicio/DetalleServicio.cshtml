@@ -46,7 +46,10 @@
             <tr>
                 <td style="background-color: #7D888C; color: white">Fecha de Entrega</td>
                 <td>
-                    @item.ticket.TkFechaEntrega
+                    @if (item.ticket.TkFechaEntrega.HasValue)
+                    {
+                        @item.ticket.TkFechaEntrega.Value.ToShortDateString()
+                    }
                 </td>
             </tr>
             <tr>
