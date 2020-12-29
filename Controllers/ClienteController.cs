@@ -38,11 +38,8 @@ namespace SwLavanderia.Controllers
                 {
                     _context.Add(objCliente);
                     _context.SaveChanges();
-                    ViewBag.Message = "Registro del cliente exitoso";
-                    return View();    
+                    return RedirectToAction("ListarCliente");    
                 }
-            
-
             
             return View();
             

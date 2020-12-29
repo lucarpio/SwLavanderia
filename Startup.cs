@@ -30,7 +30,9 @@ namespace SwLavanderia
             services.AddDbContext<LavanderiaContext>(dbo => dbo.UseNpgsql(Configuration.GetConnectionString("Identity-db")));
             services.AddIdentity<IdentityUser, IdentityRole>()
                     .AddEntityFrameworkStores<LavanderiaContext>()
-                    .AddDefaultTokenProviders();
+                    .AddDefaultTokenProviders()
+                    .AddErrorDescriber<MyErrorDescriber>();
+
             
         }
 
@@ -62,4 +64,48 @@ namespace SwLavanderia
             });
         }
     }
+
+
+
+    public class MyErrorDescriber: IdentityErrorDescriber
+    {
+        public override IdentityError PasswordRequiresNonAlphanumeric()
+        {
+            return new IdentityError()
+            {
+                Code = nameof(PasswordRequiresNonAlphanumeric),
+                Description = "La contraseña debe contener un caracter no alfanúmerico."
+            };
+        }
+
+        public override IdentityError PasswordRequiresDigit()
+        {
+            return new IdentityError()
+            {
+                Code = nameof(PasswordRequiresDigit),
+                Description = "La contraseña debe contener al menos 1 dígito ('0'-'9')."
+            };
+        }
+
+        public override IdentityError PasswordRequiresUpper()
+        {
+            return new IdentityError()
+            {
+                Code = nameof(PasswordRequiresUpper),
+                Description = "La contraseña debe contener al menos 1 letra mayúscula ('A'-'Z')."
+            };
+        }
+
+        public override IdentityError PasswordTooShort(int length)
+        {
+             return new IdentityError()
+            {
+                Code = nameof(PasswordRequiresUpper),
+                Description = "La contraseña debe tener un tamaño de 6 caracteres o más."
+            };
+        }
+    }
+
+
+    
 }
