@@ -34,8 +34,8 @@ namespace SwLavanderia.Controllers
             double restante1;
             double restante2;
             
-            double cantidadalmacen1 = tickets().Where(x => x.AlmacenId == 1).Where(y=>y.EstadoId != 4).ToList().Count();
-            double cantidadalmacen2 = tickets().Where(x => x.AlmacenId == 2).Where(y=>y.EstadoId != 4).ToList().Count();
+            double cantidadalmacen1 = tickets().Where(x => x.AlmacenId == 1 &&  x.EstadoId != 4 ).ToList().Count();
+            double cantidadalmacen2 = tickets().Where(x => x.AlmacenId == 2 &&  x.EstadoId != 4 ).ToList().Count();
 
             porcentaje1 = Math.Round((cantidadalmacen1/78.0) * 100, 2) ;
             porcentaje2 = Math.Round((cantidadalmacen2/100.0) * 100, 2) ;

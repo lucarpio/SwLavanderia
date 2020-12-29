@@ -77,7 +77,7 @@ namespace SwLavanderia.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Clientes.Update(objCliente);
+                _context.Update(objCliente);
                 _context.SaveChanges();
                 return RedirectToAction("ListarCliente");   
             }
