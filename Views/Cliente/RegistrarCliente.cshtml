@@ -11,12 +11,12 @@
     <form asp-action="RegistrarCliente" id="test-form" method="post">
         <div class="form-group">
             <label asp-for="Nombre">Nombre(s)*:</label>
-            <input asp-for="Nombre" placeholder="Nombre(s)" class="form-control">
+            <input asp-for="Nombre" placeholder="Nombre(s)" class="form-control" title="Ingrese un dato válido, no se admiten números ni caractéres especiales" class="form-control" required="" pattern="[a-zA-Z]+">
             <small><strong><span asp-validation-for="Nombre" class="text-danger"></span></strong></small>
         </div>
         <div class="form-group">
             <label asp-for="Apellido">Apellido(s)*:</label>
-            <input asp-for="Apellido" placeholder="Apellidos(s)" class="form-control">
+            <input asp-for="Apellido" placeholder="Apellidos(s)" class="form-control" title="Ingrese un dato válido, no se admiten números ni caractéres especiales" class="form-control" required="" pattern="[a-zA-Z]+">
             <small><strong><span asp-validation-for="Apellido" class="text-danger"></span></strong></small>
         </div>
        
@@ -26,30 +26,29 @@
             <select asp-for="TipoDoc" class="form-control">
                 <option value="Dni">Dni</option>
                 <option value="Cne">Cne</option>
-                <option value="Pasaporte">Pasaporte</option>
             </select>
         </div>
     
     
         <div class="form-group">
             <label asp-for="NroDoc">Numero de Documento*:</label>
-            <input asp-for="NroDoc" type="tel" placeholder="Numero de Documento" class="form-control">
+            <input asp-for="NroDoc" type="tel" maxlength="8" minlength="8" title="En este campo solo acepta números" pattern="[0-9]+" placeholder="Numero de Documento" class="form-control" required="">
             <small><strong><span asp-validation-for="NroDoc" class="text-danger"></span></strong></small>
         </div>
     
     
         <div class="form-group">
             <label asp-for="Direccion">Dirección*:</label>
-            <input asp-for="Direccion" placeholder="Dirección" class="form-control">
-            <small><strong><span asp-validation-for="Direccion" class="text-danger"></span></strong></small>
+            <input asp-for="Direccion" placeholder="Dirección" class="form-control" required="">
+            
         </div>
     
         
     
         <div class="form-group">
             <label asp-for="Tel">Teléfono*:</label>
-            <input asp-for="Tel" placeholder="Numero de telefono" class="form-control">
-            <small><strong><span asp-validation-for="Tel" class="text-danger"></span></strong></small>
+            <input asp-for="Tel" type="tel" placeholder="Numero de telefono" class="form-control" title="Ingrese un número válido (teléfono o celular)" pattern="[0-9]+" maxlength="9" required="">
+           
         </div>
 
         <div class="form-group">

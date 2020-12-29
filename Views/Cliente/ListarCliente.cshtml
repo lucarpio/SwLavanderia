@@ -45,32 +45,33 @@
                                 <br>
                             </div>
                             <div>
-                                Datos: 
+                                <b>Datos:</b>  
                                 <br>                           
-                                Tipo de documento : @Html.DisplayFor(modelItem => Model[i+j].TipoDoc)
+                                <b>Tipo de documento:</b>  @Html.DisplayFor(modelItem => Model[i+j].TipoDoc)
                                 <br>
-                                Número de documento: @Html.DisplayFor(modelItem => Model[i+j].NroDoc)
+                                <b>Número de documento:</b> 
                                 <br>
-                                Dirección: 
+                                @Html.DisplayFor(modelItem => Model[i+j].NroDoc)
+                                <br>
+
+                                <b>Dirección:</b> 
                                 <br>
                                 @Html.DisplayFor(modelItem => Model[i+j].Direccion)
                                 <br>
-                                Teléfono: 
+                                <b>Teléfono:</b>
                                 <br>
                                 @Html.DisplayFor(modelItem => Model[i+j].Tel)
                                 <br>
-                                Email: 
+                                <b>Email:</b>
                                 <br>
                                 @Html.DisplayFor(modelItem => Model[i+j].Email)
                                 <br>
-                                Distrito: @Html.DisplayFor(modelItem => Model[i+j].Distrito.Nombre)
+                                <b>Distrito:</b>
+                                @Html.DisplayFor(modelItem => Model[i+j].Distrito.Nombre)
                             </div>
                             <br>
-                            <div class="row">
-                                <div class="col-3">
-                                    <button class="btn btn-success"><a asp-action="EditarCliente" asp-route-id="@Model[i+j].Id">Editar</a></button>
-                                </div>
-                                <div class="col-3">
+                            <div>
+                                <div style="width: 100%;" >
                                     <button class="btn btn-warning"  onclick="return confirmarEliminar()"> <a asp-action="BorrarCliente" asp-route-id="@Model[i+j].Id">Borrar</a></button>
                                 </div>
                                 

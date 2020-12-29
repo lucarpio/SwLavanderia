@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using SwLavanderia.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
+using SwLavanderia.Models;
 
 namespace SwLavanderia.Controllers
 {
@@ -20,14 +20,16 @@ namespace SwLavanderia.Controllers
         {
             return View();
         }
+
+        
         [HttpPost]
-        public IActionResult Registro(string nombre, string apellido, string tipdoc, string nrodoc, string pwd, string pwdconfirm )
+        public IActionResult Registro(Usuario usuario )
         {
-            if(pwd==pwdconfirm){
-                var username=nombre.Substring(0,3)+apellido.Substring(0,3) + nrodoc;
+            if(ModelState.IsValid){
+                var username=usuario.nombre.Substring(0,3)+usuario.apellido.Substring(0,3) + usuario.nrodoc;
                 var IdentityUser = new IdentityUser(username);
                 
-                    var result = _um.CreateAsync(IdentityUser,pwd).Result;
+                    var result = _um.CreateAsync(IdentityUser,usuario.pwd).Result;
                 
                 if(result.Succeeded)
                 {
@@ -37,10 +39,11 @@ namespace SwLavanderia.Controllers
                 {
                     ModelState.AddModelError("usuario", error.Description);
                 }
-            }else{
-                ModelState.AddModelError("pwd","Las contraseñas no coinciden");
             }
+                
+             //form formulario = new form(nombre, apellido, tipdoc, nrodoc, pwd, pwdconfirm );
 
+             //ModelState.AddModelError("pwd","Las contraseñas no coinciden");
             return View();
         }
 
