@@ -47,7 +47,7 @@
     
         <div class="form-group">
             <label asp-for="Tel">Teléfono*:</label>
-            <input asp-for="Tel" type="tel" placeholder="Numero de telefono" class="form-control" title="Ingrese un número válido (teléfono o celular)" pattern="[0-9]+" maxlength="9" required="">
+            <input asp-for="Tel" type="tel" placeholder="Numero de telefono" class="form-control" title="Ingrese un número válido (teléfono o celular)" pattern="[0-9]+" maxlength="9" minlength="7" required="">
            
         </div>
 
