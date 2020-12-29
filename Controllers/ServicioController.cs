@@ -142,6 +142,7 @@ namespace SwLavanderia.Controllers
                     ViewBag.NUMEROBOLETA = objTicket.TkNroBoleta;
                     ViewBag.CLIENTE = objTicket.Cliente.Nombre+" "+objTicket.Cliente.Apellido+" "+objTicket.Cliente.NroDoc;
                     ViewBag.ESTADOS = _context.Estados.ToList().Select(x=> new SelectListItem(x.NombreEstado,x.Id.ToString()));
+                   
                     Estado = false; // si existe manda a formulario POST
                 }
                 ViewBag.Peticion = Estado;
@@ -163,6 +164,54 @@ namespace SwLavanderia.Controllers
             ViewBag.NUMEROBOLETA = objayuda.TkNroBoleta;
             ViewBag.CLIENTE = objayuda.Cliente.Nombre+" "+objayuda.Cliente.Apellido+" "+objayuda.Cliente.NroDoc;
             ViewBag.ESTADOS = _context.ServiciosDisponibles.ToList().Select(x=> new SelectListItem(x.NomServ,x.Id.ToString()));
+            objayuda.EstadoId = objBoleta.EstadoId;
+            _context.Update(objayuda);
+            _context.SaveChanges();
+            return View();
+        }
+
+        public IActionResult VerEstadoServicio(Ticket objTicket)
+        {
+            var Estado = true;
+            ViewBag.Peticion = Estado;
+            if(objTicket.TkNroBoleta != 0)//SE BUSCA EL TICKET
+            {
+                objTicket = _context.Tickets.Include(x=>x.Cliente).Include(x=>x.Servicios).Include(y=>y.Estado).Where(x=>x.TkNroBoleta == objTicket.TkNroBoleta).FirstOrDefault();//BUSCAR
+
+                if(objTicket == null)//NO ENCUENTRA EL TICKET
+                {
+                    ModelState.AddModelError("TkNroBoleta", "Boleta no encontrada");
+                    Estado = true; // si no existe manda a formulario GET
+                }else//ENCUENTRA EL TICKET
+                {
+                    ViewBag.NUMEROBOLETA = objTicket.TkNroBoleta;
+                    ViewBag.CLIENTE = objTicket.Cliente.Nombre+" "+objTicket.Cliente.Apellido+" "+objTicket.Cliente.NroDoc;
+                    ViewBag.ESTADOS = objTicket.Estado.NombreEstado;
+                    ViewBag.PRECIOTOTAL = objTicket.TkPagoTotal;
+                    ViewBag.FECHAENTREGA = objTicket.TkFechaEntrega;
+                    Estado = false; // si existe manda a formulario POST
+                }
+                ViewBag.Peticion = Estado;
+                // return Json(objTicket);
+                return View(objTicket);
+            }else//NO SE BUSCA TICKET = PRIMERA VEZ QUE ENTRA
+            {
+                ViewBag.Peticion = Estado;
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult VerEstadoServicio(int nroboleta, Ticket objBoleta)
+        {
+            var objayuda = new Ticket();
+            ViewBag.Peticion = true;
+            objayuda = _context.Tickets.Include(x=>x.Cliente).Include(y=>y.Estado).Where(x=>x.TkNroBoleta == objBoleta.TkNroBoleta).FirstOrDefault();//BUSCAR
+            ViewBag.NUMEROBOLETA = objayuda.TkNroBoleta;
+            ViewBag.CLIENTE = objayuda.Cliente.Nombre+" "+objayuda.Cliente.Apellido+" "+objayuda.Cliente.NroDoc;
+            ViewBag.ESTADOS = objayuda.Estado.NombreEstado;
+            ViewBag.PRECIOTOTAL = objayuda.TkPagoTotal;
+            ViewBag.FECHAENTREGA = objayuda.TkFechaEntrega;
             objayuda.EstadoId = objBoleta.EstadoId;
             _context.Update(objayuda);
             _context.SaveChanges();

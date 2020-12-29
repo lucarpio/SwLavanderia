@@ -12,6 +12,7 @@ namespace SwLavanderia.Data
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Distrito> Distritos { get; set; }
         public DbSet<Estado> Estados { get; set; }
+        public DbSet<Contact> Contactos { get; set; }
         public DbSet<ServiciosDisponibles> ServiciosDisponibles { get; set; }
         public LavanderiaContext(DbContextOptions dbo) : base(dbo)
         {
