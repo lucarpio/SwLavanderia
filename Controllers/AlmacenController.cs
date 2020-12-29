@@ -54,6 +54,13 @@ namespace SwLavanderia.Controllers
             ViewBag.restante1=resto1;
             ViewBag.restante2=resto2;
             
+            if(almacen1==1){
+                ViewBag.mensaje1="Almacen 1 lleno";
+            }
+            if(almacen1==100){
+                ViewBag.mensaje2="Almacen 2 lleno";
+            }
+            
             // return Json(ListaServicios);
             return View();
         }
