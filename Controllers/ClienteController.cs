@@ -3,6 +3,7 @@ using SwLavanderia.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace SwLavanderia.Controllers
 {
@@ -27,11 +28,12 @@ namespace SwLavanderia.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult RegistrarCliente(Cliente objCliente)
         {
-            
+            var distritos = _context.Distritos.ToList();
+            ViewBag.Distrito = distritos.Select(d => new SelectListItem(d.Nombre, d.Id.ToString()));   
             if (_context.Clientes.Any(a => a.NroDoc == objCliente.NroDoc))
             {
                 ModelState.AddModelError("NroDoc","Ya existe un Documento con ese número");
-            }else{
+            }
                 if(ModelState.IsValid)
                 {
                     _context.Add(objCliente);
@@ -39,10 +41,9 @@ namespace SwLavanderia.Controllers
                     ViewBag.Message = "Registro del cliente exitoso";
                     return View();    
                 }
-            }
+            
 
-            var distritos = _context.Distritos.ToList();
-            ViewBag.Distrito = distritos.Select(d => new SelectListItem(d.Nombre, d.Id.ToString()));
+            
             return View();
             
         }
@@ -50,9 +51,7 @@ namespace SwLavanderia.Controllers
 
         public IActionResult ListarCliente() 
         {   
-            var distritos = _context.Distritos.ToList();
-            ViewBag.Distrito = distritos.Select(d => new SelectListItem(d.Nombre, d.Id.ToString()));
-            var listClientes=_context.Clientes.OrderBy(s=>s.Id) .ToList();
+            var listClientes=_context.Clientes.Include(c => c.Distrito).OrderBy(s=>s.Nombre).ToList();
             return View(listClientes);
         }
 
