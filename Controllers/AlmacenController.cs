@@ -54,7 +54,7 @@ namespace SwLavanderia.Controllers
             ViewBag.restante1=resto1;
             ViewBag.restante2=resto2;
             
-            if(almacen1==1){
+            if(almacen1==78){
                 ViewBag.mensaje1="Almacen 1 lleno";
             }
             if(almacen1==100){
