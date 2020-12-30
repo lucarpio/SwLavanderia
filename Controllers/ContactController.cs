@@ -67,7 +67,7 @@ namespace SwLavanderia.Controllers
             }
             else
             { 
-                ViewBag.msg = "Envío de notificación exitoso!.";
+                ViewBag.msg = "Error en envío de notificación";
             }
             return View("Index");
         }
