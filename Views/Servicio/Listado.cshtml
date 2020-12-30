@@ -42,12 +42,9 @@
                 <th>
                     Precio
                 </th>
-                <th>
-                    Editar
-                </th>
-                <th>
+                @* <th>
                     Borrar
-                </th>
+                </th> *@
             </tr>
             @foreach (var item in Model)
             {
@@ -61,16 +58,11 @@
                     <td>
                         S/. @item.PrecServicio
                     </td>
-                    <td>
-                        <button class="btn btn-warning">
-                            Editar
-                        </button>
-                    </td>
-                    <td>
-                        <button class="btn btn-warning">
-                            Borrar
-                        </button>
-                    </td>
+                    @* <td>
+                        <a href="#" class="btn btn-outline-danger">
+                            X
+                        </a>
+                    </td> *@
                 </tr>
             }
         </table>
@@ -91,7 +83,7 @@
             </p>
             <form action="Detalle" method="get">
                 <a class="btn btn-success" asp-action="Detalle" asp-route-boleta="@ViewBag.idBol">Agregar</a>
-                <input type="submit" value="Cancelar" class="btn btn-danger" asp-action="Confirmacion">
+                <a class="btn btn-danger" asp-action="Borrarboleta" asp-route-boleta="@ViewBag.idBol">Volver</a>
             </form>
         </div>
     </div>

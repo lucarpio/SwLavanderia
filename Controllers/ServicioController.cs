@@ -58,9 +58,20 @@ namespace SwLavanderia.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Listado",objTk);
             }
-            
         }
-
+        public IActionResult Borrarboleta(int? boleta)
+        {
+            Ticket objTk = new Ticket();
+            objTk = _context.Tickets.Find(boleta);
+            if(boleta.HasValue)
+            {
+                _context.Remove(objTk);
+                _context.SaveChanges();
+                return RedirectToAction("Index","Home");
+            }else{
+                return Json(objTk);
+            }
+        }
 
 
         public IActionResult Detalle(int boleta)
