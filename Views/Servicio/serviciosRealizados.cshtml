@@ -30,7 +30,41 @@
         <th>Cantidad</th>
     </thead>
     <tbody>
-        @foreach (var servicio in Model)
+        @for (var i = 1; i <= 10; i++)
+        {
+            var tipoServicio = i;
+            var count = 0;
+            @if (Model.Where(x=>x.serviciosDisponibles.Id == tipoServicio).FirstOrDefault() != null)
+            {
+                <tr class="text-center">
+                    <td>
+                        @Model.Where(x=>x.serviciosDisponibles.Id == tipoServicio).FirstOrDefault().serviciosDisponibles.NomServ
+                    </td>
+
+                    @foreach (var item in Model.Where(x=> x.serviciosDisponiblesId == tipoServicio))
+                    {
+                        count++;
+                    }
+                    <td>
+                        @count
+                    </td>
+                </tr>
+            }
+            
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        @* @foreach (var servicio in Model)
         {
             <tr class="text-center">
                 <td>
@@ -41,7 +75,7 @@
                 </td>
             </tr>
             
-        }
+        } *@
         <tr class="text-light bg-dark text-center">
             <td>Servicio</td>
             <td>Cantidad</td>

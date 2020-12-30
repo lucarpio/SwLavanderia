@@ -1,14 +1,7 @@
 @model Servicio
 <div class="container">
     <h1 class="text-center">Registrar Servicio</h1>
-    <div class="row">
-        <div class="col">
-            Nro boleta: @ViewBag.NroBoleta
-        </div>
-        <div class="col">
-            Esta columna es provisional
-        </div>
-    </div>
+    <br>
     <form method="POST" asp-route-idboleta="@ViewBag.idboleta">
         <div class="form-group">
             <label for="">Tipo de Servicio: </label>

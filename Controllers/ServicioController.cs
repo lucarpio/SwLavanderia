@@ -316,7 +316,8 @@ namespace SwLavanderia.Controllers
                 ModelState.AddModelError("TkFechaIngreso", "Ingresar lapso de tiempo válido");
                 return View(servicios);
             }
-
+            ViewBag.fechainicio = fechainicial;
+            ViewBag.fechafin = fechafinal;
             return View(servicios);
             // Ticket objPrueba = new Ticket();
             // objPrueba.TkFechaIngreso = fechainicial;
