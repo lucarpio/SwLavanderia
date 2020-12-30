@@ -30,10 +30,7 @@
                         <img src="imagenes/LogoBurbujas1.png"  alt="Logo" />
                         <!-- This is website logo -->
                     </a>
-                <button class="switch" id="switch" style="user-select: auto;">
-                    <span style="user-select: auto;">☺</span>
-                    <span style="user-select: auto;">☻</span>
-                </button>
+                
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="user-select: auto;">
                     <span class="navbar-toggler-icon" style="user-select: auto;"></span>
                 </button>
@@ -47,7 +44,7 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle active text-light" href="#" data-toggle="dropdown" role="button" >SEGUIMINENTO DE ALMACÉN</a>
+                                <a class="nav-link dropdown-toggle active text-light" href="#" data-toggle="dropdown" role="button" >SEGUIMIENTO DE ALMACÉN</a>
                                 <div class="dropdown-menu bg-dark ">
                                     <a class="dropdown-item bg-dark text-light" asp-controller="Servicio" asp-action="serviciosPendientes">Listar servicios pendientes</a>
                                     <a class="dropdown-item bg-dark text-light" asp-controller="Almacen" asp-action="almacenes">Visualizar capacidad de almacenes</a>
