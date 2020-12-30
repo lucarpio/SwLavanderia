@@ -10,17 +10,22 @@
         @* <link rel="stylesheet" type="text/css" href="css/bootstrap.css" /> *@
         <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
         <link rel="stylesheet" type="text/css" href="css/pluton.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery.cslider.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery.bxslider.css" />
         <link rel="stylesheet" type="text/css" href="css/animate.css" />
+        
+
         <link rel="icon" type="image/png" href="imagenes/ico/burbujas01.png" />
 </head>
-<body>  
-       <header>
+<body>
 
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="user-select: auto; background-color:#015878;">
-            <div class="container" style="user-select: auto; ">
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar navbar-dark bg-dark border-bottom border-dark box-shadow" >
+            <div class="container" > 
                  <a asp-controller="Home" asp-action="Index" class="brand">
                         <img src="imagenes/LogoBurbujas1.png"  alt="Logo" />
                         <!-- This is website logo -->
@@ -32,32 +37,68 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="user-select: auto;">
                     <span class="navbar-toggler-icon" style="user-select: auto;"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" style="user-select: auto;">
-                       <ul class="nav" id="top-navigation">
-                           <li><a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>                    
-                          <li><a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacidad</a></li>
-                          @if (User.Identity.IsAuthenticated)
+
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <!--<li class="nav-item active">-->
+                        <li class="nav-item">
+                            <a class="nav-link active text-light" asp-controller="Home" asp-action="Index">INICIO</a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated)
                         {
-                            <li><a class="nav-link text-light" asp-area="" asp-controller="Cliente" asp-action="RegistrarCliente">Registrar Cliente</a></li>
-                             <li><a class="nav-link text-light" asp-area="" asp-controller="Cliente" asp-action="ListarCliente">Listar Cliente</a></li>
-                              <li><a class="nav-link text-light" asp-area="" asp-controller="Servicio" asp-action="Registro">Nuevo Servicio</a></li>
-                              <li><a class="nav-link text-light" asp-area="" asp-controller="Servicio" asp-action="servicios">Listar servicios</a></li>
-                             <li><a class="nav-link text-light" asp-area="" asp-controller="Servicio" asp-action="serviciosPendientes">Servicios pendientes</a></li>
-                              <li><a class="nav-link text-light" asp-area="" asp-controller="Servicio" asp-action="serviciosRealizados">Servicios realizados</a></li>
-                              }else
-                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle active text-light" href="#" data-toggle="dropdown" role="button" >SEGUIMINENTO DE ALMACÉN</a>
+                                <div class="dropdown-menu bg-dark ">
+                                    <a class="dropdown-item bg-dark text-light" asp-controller="Servicio" asp-action="serviciosPendientes">Listar servicios pendientes</a>
+                                    <a class="dropdown-item bg-dark text-light" asp-controller="Almacen" asp-action="almacenes">Visualizar capacidad de almacenes</a>
+                                    
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-light" style="cursor: pointer;" data-toggle="dropdown" role="button" >MANTENIMIENTO DE SERVICIOS</a>
+                                <div class="dropdown-menu bg-dark">
+                                    <a class="dropdown-item bg-dark text-light" asp-controller="Servicio" asp-action="Registro">Registrar servicio y prendas de lavandería</a>
+                                    <a class="dropdown-item bg-dark text-light" asp-controller="Servicio" asp-action="servicios">Listar Servicios</a>
+                                    <a class="dropdown-item bg-dark text-light" asp-controller="Cliente" asp-action="RegistrarCliente">Registrar Cliente</a>
+                                    <a class="dropdown-item bg-dark text-light" asp-controller="Servicio" asp-action="serviciosRealizados">Listar Reporte de servicios</a>
+                                    <a class="dropdown-item bg-dark text-light" asp-controller="Cliente" asp-action="ListarCliente">Listar Clientes registrados</a>
+                                    
+                                </div>
+                            </li>
+                            
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-light" style="cursor: pointer;" data-toggle="dropdown" role="button" >ATENCIÓN DE CLIENTES</a>
+                                <div class="dropdown-menu bg-dark">
+                                    <a class="dropdown-item bg-dark text-light" asp-controller="Servicio" asp-action="VerEstadoServicio">Visualizar detalle y estado de servicios</a>
+                                    <a class="dropdown-item bg-dark text-light" asp-controller="Contact" asp-action="Index">Notificar servicios</a>
+                                </div>
+                            </li>
+                            
+
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Cuenta" asp-action="Registro">Crear cuenta</a>
+                                    <a class="nav-link active text-light" asp-controller="Cuenta" asp-action="logout">Cerrar Sesion (@User.Identity.Name)</a>
+                            </li>
+                        }else
+                        {
+                            
+                            <li class="nav-item">
+                                <a class="nav-link active text-light" asp-area="" asp-controller="Cuenta" asp-action="Registro">Crear cuenta</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Cuenta" asp-action="Acceso">Iniciar sesión</a>
-                            </li> 
+                                <a class="nav-link active text-light" asp-area="" asp-controller="Cuenta" asp-action="Acceso">Iniciar sesión</a>
+                            </li>
+
+                            
                         }
-                        </ul>
+                    </ul>
                 </div>
             </div>
         </nav>
     </header>
+
+    
+       
     
     <div class="container">
         <main role="main" class="pb-3">
